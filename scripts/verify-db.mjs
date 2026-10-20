@@ -12,6 +12,9 @@ const admin1 = '10000000-0000-4000-8000-000000000001';
 const admin2 = '10000000-0000-4000-8000-000000000002';
 const admin3 = '10000000-0000-4000-8000-000000000003';
 const productId = '30000000-0000-4000-8000-000000000001';
+const holdKey1 = '40000000-0000-4000-8000-000000000001';
+const holdKey2 = '40000000-0000-4000-8000-000000000002';
+const holdKey3 = '40000000-0000-4000-8000-000000000003';
 
 async function main() {
   const db = new PGlite();
@@ -34,11 +37,16 @@ async function main() {
   const save = async (id, details, battery, financial, images = []) => db.query(
     'select public.save_product_with_details($1::uuid,$2::jsonb,$3::jsonb,$4::jsonb,$5::text[]) as saved_id',
     [id, JSON.stringify(details), JSON.stringify(battery), JSON.stringify(financial), images]);
+  const reserve = async (key, fingerprint = 'a'.repeat(64)) => (await value(
+    'select public.create_reservation($1::uuid,$2,$3,$4,$5::uuid) as result',
+    [productId, 'Cliente Teste', 'cliente@example.com', fingerprint, key]
+  )).result;
 
   try {
     await db.exec(`
       create role anon;
       create role authenticated;
+      create role service_role;
       create schema auth;
       create schema storage;
       create table auth.users(id uuid primary key);
@@ -152,6 +160,69 @@ async function main() {
     await asRole('authenticated', admin2, 'aal2');
     assert.equal((await value('select public.is_admin() as allowed')).allowed, false);
     await expectError(() => save(productId, changed, battery, financial), /segundo fator obrigatório/, 'administrador desativado perde permissão imediatamente');
+
+    await asRole('postgres');
+    await db.exec(fs.readFileSync(path.join(migrationDir, '202610200001_reservations.sql'), 'utf8'));
+    ok('migração de reservas aplicada com bloqueio de disponibilidade');
+
+    await asRole('anon');
+    await expectError(() => rows('select * from public.reservations'), /permission denied/, 'dados de clientes inacessíveis ao público');
+    await expectError(() => reserve(holdKey1), /permission denied/, 'criação de reserva proibida ao visitante via RPC');
+
+    await asRole('authenticated', admin1, 'aal2');
+    await expectError(() => reserve(holdKey1), /permission denied/, 'reserva via RPC proibida mesmo ao administrador');
+
+    await asRole('service_role');
+    const firstHold = await reserve(holdKey1);
+    assert.ok(firstHold.token);
+    assert.equal((await reserve(holdKey1)).token, firstHold.token);
+    ok('reserva criada com chave idempotente');
+    await expectError(() => reserve(holdKey2), /unavailable/, 'segunda reserva da mesma unidade bloqueada');
+
+    await asRole('postgres');
+    const heldProduct = await value('select availability, hold_reservation_id from public.products where id=$1', [productId]);
+    assert.equal(heldProduct.availability, 'reserved');
+    assert.ok(heldProduct.hold_reservation_id);
+    await expectError(() => db.query("update public.products set availability='sold' where id=$1", [productId]), /reserva ativa/, 'venda direta bloqueada durante reserva ativa');
+    await expectError(() => db.query('delete from public.products where id=$1', [productId]), /reserva ativa/, 'exclusão bloqueada durante reserva ativa');
+
+    await asRole('authenticated', admin1, 'aal2');
+    await expectError(() => save(productId, { ...changed, availability: 'available' }, battery, financial), /reserva ativa/, 'RPC administrativa não pode liberar uma reserva ativa');
+    await save(productId, { ...changed, availability: 'reserved' }, battery, financial);
+    ok('edição administrativa preserva reserva ativa');
+
+    await asRole('postgres');
+    await db.query("update public.reservations set expires_at=now()-interval '1 minute' where idempotency_key=$1", [holdKey1]);
+    await asRole('service_role');
+    assert.equal((await value('select public.expire_reservations() as count')).count, 1);
+    assert.equal((await value('select public.read_reservation($1::uuid) as result', [firstHold.token])).result.status, 'expired');
+    await asRole('postgres');
+    assert.equal((await value('select availability from public.products where id=$1', [productId])).availability, 'available');
+    assert.equal((await value('select hold_reservation_id from public.products where id=$1', [productId])).hold_reservation_id, null);
+    ok('expiração libera a unidade e preserva histórico da reserva');
+
+    await asRole('service_role');
+    const secondHold = await reserve(holdKey2, 'b'.repeat(64));
+    // An old management link must never cancel or release a newer hold.
+    assert.equal((await value('select public.cancel_reservation($1::uuid) as result', [firstHold.token])).result, true);
+    assert.equal((await value('select public.read_reservation($1::uuid) as result', [secondHold.token])).result.status, 'held');
+    await asRole('postgres');
+    assert.equal((await value('select availability from public.products where id=$1', [productId])).availability, 'reserved');
+    ok('link expirado não cancela a reserva posterior da mesma unidade');
+    await asRole('service_role');
+    assert.equal((await value('select public.cancel_reservation($1::uuid) as result', [secondHold.token])).result, true);
+    assert.equal((await value('select public.read_reservation($1::uuid) as result', [secondHold.token])).result.status, 'cancelled');
+    await asRole('postgres');
+    assert.equal((await value('select availability from public.products where id=$1', [productId])).availability, 'available');
+    ok('cancelamento libera a unidade e mantém o link consultável');
+
+    await db.query("update public.products set availability='sold' where id=$1", [productId]);
+    await asRole('service_role');
+    await expectError(() => reserve(holdKey3, 'c'.repeat(64)), /unavailable/, 'produto vendido não pode ser reservado');
+    await asRole('postgres');
+    assert.equal((await value('select public.expire_reservations() as count')).count, 0);
+    assert.equal((await value('select availability from public.products where id=$1', [productId])).availability, 'sold');
+    ok('expiração não recoloca produto vendido à venda');
 
     console.log(`\nRESULTADO: ${passed} verificações aprovadas (PostgreSQL ${ (await value('show server_version')).server_version } via PGlite).`);
   } finally {

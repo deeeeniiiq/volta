@@ -1,12 +1,12 @@
 # volta. — catálogo de MacBooks seminovos
 
-Primeira versão funcional de um site de revenda com landing page, catálogo pesquisável, páginas individuais e administração privada para **até dois administradores ativos**. A marca **volta.** é provisória.
+Protótipo de loja de MacBooks seminovos com catálogo por unidade física, comparação compartilhável, visualização 3D ilustrativa, reservas temporárias e administração privada para **até dois administradores ativos**. A marca **volta.** é provisória.
 
 ## Stack
 
 - **Next.js 16**, React 19, TypeScript e Tailwind CSS 4, com CSS próprio e ícones Lucide.
 - **Supabase**: PostgreSQL (RLS), Auth com segundo fator TOTP e Storage de fotos.
-- Um único projeto, com rotas públicas `/`, `/catalogo`, `/macbooks/[slug]` e área privada `/admin`.
+- Um único projeto, com rotas públicas `/`, `/catalogo`, `/comparar`, `/macbooks/[slug]`, `/reserva/[token]` e área privada `/admin`.
 
 ## Rodar agora (modo demonstração)
 
@@ -24,7 +24,7 @@ Para conhecer a aparência do dashboard sem autenticação, abra `/admin/previa`
 ## Ativar banco, fotos e os dois administradores
 
 1. Crie um projeto no [Supabase](https://supabase.com/dashboard). Aguarde o banco estar pronto.
-2. Abra **SQL Editor** e execute, nesta ordem, [`202610190001_initial.sql`](supabase/migrations/202610190001_initial.sql) e [`202610190002_atomic_product_save.sql`](supabase/migrations/202610190002_atomic_product_save.sql). O primeiro cria as tabelas, modelos, armazenamento, RLS e auditoria; o segundo instala a função de salvamento transacional. **Se você já executou a migração inicial, execute somente a segunda.**
+2. Abra **SQL Editor** e execute, nesta ordem, [`202610190001_initial.sql`](supabase/migrations/202610190001_initial.sql), [`202610190002_atomic_product_save.sql`](supabase/migrations/202610190002_atomic_product_save.sql) e [`202610200001_reservations.sql`](supabase/migrations/202610200001_reservations.sql). A primeira cria as tabelas, modelos, armazenamento, RLS e auditoria; a segunda instala o salvamento transacional; a terceira instala reservas e proteção do estoque. Em um projeto já migrado, aplique apenas os arquivos ainda não executados. **Não execute migrações no banco de produção sem revisão e autorização.**
 3. Em **Authentication → Providers/Email** ou nas configurações de Auth correspondentes à versão do painel, **desative o cadastro público de novos usuários**. Convide apenas você e seu sócio em **Authentication → Users**. Configure os e-mails e as senhas pelos fluxos do Supabase.
 4. Na listagem de usuários autenticados, copie os dois UUIDs. Execute este comando no **SQL Editor**, substituindo os UUIDs pelos reais:
 
@@ -34,7 +34,7 @@ Para conhecer a aparência do dashboard sem autenticação, abra `/admin/previa`
    ```
 
    **Nunca** crie contas de administrador por um formulário público. A tabela restringe a dois administradores ativos.
-5. Copie `.env.example` para `.env.local` e preencha com a URL e a **chave pública/anon** do Supabase. Opcionalmente, configure o número comercial do WhatsApp no formato `55DDDNÚMERO`, apenas dígitos. **Não coloque a service role/secret key no navegador.**
+5. Copie `.env.example` para `.env.local` e preencha com a URL e a **chave pública/anon** do Supabase. A chave privada `SUPABASE_SERVICE_ROLE_KEY` é necessária apenas para reservas e deve permanecer exclusivamente no ambiente do servidor. Opcionalmente, configure o WhatsApp no formato `55DDDNÚMERO`, apenas dígitos. **Nunca exponha chaves privadas com prefixo `NEXT_PUBLIC_` ou as registre no Git.**
 6. Reinicie `npm run dev`, entre em `http://localhost:3000/admin/login`, autentique-se e configure o **segundo fator TOTP** com um aplicativo autenticador. Cada administrador precisará concluir essa etapa.
 7. Acesse **Modelos** para criar novas referências ou **Nova unidade** para cadastrar um aparelho. Preencha a bateria, o custo de aquisição (privado), as condições e anexe fotografias reais. Selecione **Publicado no catálogo** e salve.
 
@@ -42,13 +42,38 @@ Assim que as variáveis do Supabase estão configuradas, o site deixa de usar os
 
 ## Fluxos implementados
 
-A vitrine utiliza branco, cinza, grafite e azul, com tipografia do sistema e fotografias editoriais identificadas. Os seis cards de demonstração usam prévias renderizadas do visualizador 3D; produtos reais continuam usando a primeira fotografia cadastrada. Os filtros são sincronizados com a URL, inclusive ao usar Voltar e Avançar no navegador.
+A vitrine utiliza branco, cinza, grafite e azul, tipografia do sistema e fotografias editoriais identificadas. Há temas **claro, escuro e automático**, com preferência local persistida e acompanhamento do tema do sistema no modo automático. Os seis cards demonstrativos usam imagens ilustrativas; produtos reais usam a primeira fotografia cadastrada. Filtros e comparação são representados na URL para permitir compartilhamento e navegação Voltar/Avançar.
 
 ### Visualização 3D
 
-Cada ficha oferece um modelo procedural em Three.js com acabamentos metálicos, teclado, trackpad, dobradiça e conexões ilustrativas. Há cinco perspectivas, rotação por arraste/toque ou setas, zoom e restauração da câmera. As transições respeitam a preferência por movimento reduzido. O visualizador ajusta o enquadramento à largura disponível, pausa fora da tela e oferece alternativa pelas fotografias quando WebGL está indisponível.
+Cada ficha oferece um modelo **GLB preexistente**, carregado com `GLTFLoader` e exibido por Three.js. Os arquivos locais são [`macbook-14.glb`](public/models/macbook-14.glb) e [`macbook-16.glb`](public/models/macbook-16.glb), obtidos do projeto [wistant/landing-macbook](https://github.com/wistant/landing-macbook). O aviso de licença MIT e atribuição está em [`LICENSE-wistant.txt`](public/models/LICENSE-wistant.txt). Há quatro perspectivas, rotação por arraste/toque, zoom e restauração da câmera. O visualizador ajusta o enquadramento ao espaço, pausa fora da tela e oferece alternativa pelas fotografias quando WebGL está indisponível. **Nenhum modelo 3D é gerado proceduralmente por este projeto.**
 
 **O modelo é ilustrativo: não é um escaneamento, laudo técnico ou reprodução das marcas de uso da unidade.** Fotografias reais e observações cadastradas continuam sendo a referência de conservação. Produtos reais com fotos abrem pela galeria; os demonstrativos abrem pelo 3D. O código do visualizador é carregado apenas quando necessário.
+
+### Comparação e compartilhamento
+
+Em `/comparar`, o visitante seleciona até três unidades e confronta preço, disponibilidade, chip, RAM, SSD, tela, ano, bateria, ciclos, conservação, cor, carregador, garantia informada e SKU. A seleção é codificada em `/comparar?ids=ID1,ID2,ID3`; IDs inexistentes são ignorados. A ação de compartilhar usa a API nativa do dispositivo quando disponível, com cópia do link como alternativa. A URL só contém identificadores públicos de produtos.
+
+### Reserva temporária e continuidade comercial
+
+Quando banco e Turnstile estão configurados e a unidade está publicada e disponível, a ficha apresenta um formulário com nome e e-mail e um desafio Cloudflare Turnstile. A rota `POST /api/reservas` valida a origem, o payload e o desafio no servidor; a função transacional `create_reservation` coloca a unidade em `reserved` por **20 minutos**, com idempotência e limites de solicitações. O prazo atual é uma política de produto provisória.
+
+O cliente recebe `/reserva/[token]`, um **link privado de gerenciamento** com contador, status, botão de cancelamento, retorno à ficha e contato contextual pelo WhatsApp. `GET /api/reservas/[token]` atualiza o estado; `DELETE /api/reservas/[token]` cancela a reserva. O token permite consultar e cancelar, portanto deve ser tratado como credencial: não é mostrado em catálogos públicos e a página não deve ser indexada. Nenhum pagamento é capturado; preço, forma de pagamento e entrega são tratados com a equipe.
+
+O PostgreSQL mantém a unidade bloqueada enquanto a reserva está ativa. A função `expire_reservations()` pode ser chamada por uma tarefa **confiável no servidor** para liberar reservas expiradas, e a leitura/criação de reservas também regulariza estados expirados quando necessário. Não existe cron de produção configurado neste protótipo. A administração não pode vender, liberar ou excluir unidades com reserva ativa sem antes cancelá-la. A tabela de clientes permanece privada via RLS e permissões de banco.
+
+Para habilitar o fluxo, configure no `.env.local`:
+
+```dotenv
+NEXT_PUBLIC_SUPABASE_URL=...
+NEXT_PUBLIC_SUPABASE_ANON_KEY=...
+SUPABASE_SERVICE_ROLE_KEY=...
+NEXT_PUBLIC_TURNSTILE_SITE_KEY=...
+TURNSTILE_SECRET_KEY=...
+RESERVATION_HASH_SECRET=...
+```
+
+No painel Cloudflare, crie um widget Turnstile para os domínios exatos usados pela loja, incluindo o domínio de desenvolvimento caso necessário. Use um segredo aleatório de alta entropia para `RESERVATION_HASH_SECRET` (por exemplo, 32 bytes aleatórios convertidos em hexadecimal) e mantenha-o estável entre instâncias. A verificação de hostname é feita no backend. Se faltar alguma dessas configurações, o site desativa a reserva online e mantém a consulta comercial. A disponibilização das chaves, domínio e migração no Supabase real exige validação antes do lançamento.
 
 ### Privacidade e páginas institucionais
 
@@ -61,6 +86,9 @@ O aviso de cookies é informativo, pois não há rastreamento publicitário conf
 | Landing | Seção principal, diferenciais, destaques, perguntas frequentes e chamadas para o catálogo. |
 | Catálogo | Pesquisa; filtros por Air/Pro, chip, RAM, preço máximo, bateria mínima e disponibilidade; ordenação e URL compartilhável. |
 | Produto | Galeria de fotos, preço, SKU, ficha técnica, bateria, ciclos, data de inspeção, estado, carregador, garantia e contato. |
+| Comparador | Seleção de até três unidades, tabela comparativa e link compartilhável. |
+| Reserva | Formulário protegido, bloqueio temporário do estoque, acompanhamento, cancelamento e WhatsApp contextual. |
+| Aparência | Tema claro, escuro e automático, salvo localmente. |
 | Dashboard | Indicadores de estoque; lista de unidades; criação e edição; publicação/rascunho/arquivo; status disponível/reservado/vendido. |
 | Cadastro | Campos individuais por aparelho; modelos reutilizáveis; fotos reais em Storage; custo de aquisição privado. |
 | Segurança | Lista de dois administradores, autenticação por senha + TOTP, checagem no servidor, RLS e registro de mudanças. |
@@ -71,24 +99,25 @@ Cada MacBook físico é um registro próprio, mesmo quando compartilha o mesmo m
 
 ## Importante antes de lançar
 
-- **Não publique comercialmente com dados de demonstração**. Substitua a marca e as fotos ilustrativas; confirme os dados de estoque, garantias, preço e observações de cada unidade.
+- **Não publique comercialmente com dados de demonstração**. Substitua a marca e as fotos ilustrativas; confirme os dados de estoque, garantias, preço e observações de cada unidade. Valide as licenças e direitos de uso dos GLBs e fotografias na distribuição final.
 - O site possui `robots: noindex` por ser um protótipo. Remova isso do `src/app/layout.tsx` somente quando a loja real estiver pronta, com domínio, título e informações comerciais definidos.
 - O WhatsApp é opcional; sem número configurado, o botão de consulta **copia uma mensagem** para o cliente usar. Configure `NEXT_PUBLIC_WHATSAPP_NUMBER` para abrir diretamente a conversa.
 - O controle administrativo está em `/admin` dentro da mesma aplicação. Um subdomínio `admin.seudominio.com.br` pode ser configurado na etapa de publicação com regras de roteamento e DNS.
 - O cadastro de fotos aceita no máximo 8 arquivos por unidade, 5 MB cada. A primeira imagem enviada é a principal. É possível acrescentar e excluir imagens pelo painel; arrastar para reordenar ficará para a próxima etapa.
-- Ainda não existem carrinho, pagamentos, cálculo de frete, automação de emissão fiscal, textos jurídicos específicos nem recuperação administrativa de contas. Esses itens exigem configurações comerciais próprias.
-- A autenticação, o banco e o Storage foram implementados, mas **as duas migrações, o segundo fator e o fluxo de gravação precisam ser validados no seu projeto Supabase** após a configuração de credenciais e administradores. Não há credenciais embutidas no repositório.
+- Ainda não existem checkout com pagamento, cálculo automático de frete, emissão fiscal, textos jurídicos definitivos nem recuperação administrativa de contas. Esses itens exigem integrações e decisões comerciais próprias. **Reservar não equivale a comprar ou pagar.**
+- A autenticação, o banco e o Storage foram implementados, mas **as três migrações, o segundo fator, a gravação e as reservas precisam ser validados no projeto Supabase real** após a configuração de credenciais e administradores. Não há credenciais embutidas no repositório.
 
 ## Comandos de verificação
 
 ```powershell
 npm run lint
+npx tsc --noEmit
 npm run build
 npm run test:db
 npm audit --omit=dev --audit-level=high
 ```
 
-`npm run test:db` inicializa um PostgreSQL isolado (PGlite) e aplica as duas migrações para testar autorização, TOTP/AAL2, limite de administradores, catálogo público, proteção de custos, auditoria, transações, rollback e fotografias. O teste substitui apenas a declaração de `pgcrypto`, pois PGlite não inclui a extensão e o PostgreSQL de teste já fornece `gen_random_uuid()`. Os esquemas `auth` e `storage` usados pelo Supabase são representados por estruturas mínimas. **Isso valida a lógica PostgreSQL, mas não substitui uma integração com Auth, Storage e RLS no projeto Supabase real.**
+`npm run test:db` inicializa um PostgreSQL isolado (PGlite) e aplica as três migrações para testar autorização, TOTP/AAL2, limite de administradores, catálogo público, custos privados, auditoria, transações, rollback, fotografias, idempotência de reservas, cancelamento, expiração e proteção do estoque. O teste substitui apenas a declaração de `pgcrypto`, pois PGlite não inclui a extensão e o PostgreSQL de teste já fornece `gen_random_uuid()`. Os esquemas `auth` e `storage` usados pelo Supabase são representados por estruturas mínimas. **Isso valida regras locais do PostgreSQL, mas não substitui testes de concorrência em conexões independentes nem uma integração com Auth, Storage, Turnstile e RLS no Supabase real.**
 
 ## Estrutura principal
 
@@ -96,6 +125,9 @@ npm audit --omit=dev --audit-level=high
 src/app/page.tsx                  landing page
 src/app/catalogo/page.tsx         catálogo
 src/app/macbooks/[slug]/page.tsx  página individual
+src/app/comparar/page.tsx          comparação compartilhável
+src/app/reserva/[token]/page.tsx   status e cancelamento de reserva
+src/app/api/reservas/             endpoints de reserva
 src/app/admin/page.tsx            estoque privado
 src/app/admin/novo/               cadastro
 src/app/admin/[id]/               edição
@@ -103,6 +135,8 @@ src/app/admin/modelos/            modelos de referência
 src/app/admin/seguranca/          segundo fator
 src/app/admin/actions.ts          mutações autenticadas
 src/lib/products.ts               consulta pública
+src/lib/reservations.ts           Turnstile e acesso privado às reservas
+src/components/macbook-3d.tsx     visualizador de GLBs preexistentes
 src/lib/auth.ts                   autorização
 supabase/migrations/              schema, políticas e auditoria
 scripts/verify-db.mjs             testes locais de integração PostgreSQL
@@ -110,4 +144,4 @@ scripts/verify-db.mjs             testes locais de integração PostgreSQL
 
 ## Identidade visual e imagens
 
-O nome **volta.** e os textos editoriais são propostas iniciais. As quatro fotografias locais são imagens de referência do Unsplash (apenas para apresentação do protótipo) e **não representam o estoque**. As seis imagens `demo-001-3d.png` a `demo-006-3d.png` são renderizações do próprio visualizador, utilizadas exclusivamente nos cards demonstrativos. Antes de comercializar, cadastre fotografias reais pelo dashboard e confirme direitos de uso de quaisquer imagens editoriais mantidas na página.
+O nome **volta.** e os textos editoriais são propostas iniciais. As quatro fotografias locais são imagens de referência do Unsplash (apenas para apresentação do protótipo) e **não representam o estoque**. As seis imagens `demo-001-3d.png` a `demo-006-3d.png` são ilustrações utilizadas exclusivamente nos cards demonstrativos. Os modelos GLB provêm do projeto Wistant, com aviso de licença preservado. Antes de comercializar, cadastre fotografias reais pelo dashboard e confirme os direitos de uso de todas as imagens editoriais e dos arquivos 3D específicos.
