@@ -1,0 +1,66 @@
+import type { Macbook } from "./types";
+
+// Dados ilustrativos para visualizar o projeto antes da configuração do Supabase.
+// Nunca apresentá-los como estoque real.
+export const demoMacbooks: Macbook[] = [
+  {
+    id: "demo-001", createdAt: "2026-10-12T10:00:00Z", sku: "DEMO-001", slug: "macbook-air-m2-2022-demo-001",
+    name: 'MacBook Air 13" M2', series: "Air", chip: "Apple M2", year: 2022,
+    screen: '13,6" Liquid Retina', ram: 16, storage: 512, color: "Meia-noite",
+    price: 4890, condition: "Excelente", batteryHealth: 96, batteryCycles: 108,
+    batteryStatus: "Normal", inspectedAt: "2026-10-01", status: "available", publication: "published",
+    featured: true, description: "Design ultrafino, operação silenciosa e desempenho para acompanhar o dia inteiro.",
+    observations: "Unidade demonstrativa. Sem informações reais de inspeção ou de estoque.",
+    charger: "Carregador MagSafe", warrantyMonths: 3, images: ["/images/air.jpg", "/images/hero.jpg"], demo: true,
+  },
+  {
+    id: "demo-002", createdAt: "2026-10-17T10:00:00Z", sku: "DEMO-002", slug: "macbook-pro-m3-pro-2023-demo-002",
+    name: 'MacBook Pro 14" M3 Pro', series: "Pro", chip: "Apple M3 Pro", year: 2023,
+    screen: '14,2" Liquid Retina XDR', ram: 18, storage: 512, color: "Preto-espacial",
+    price: 9990, condition: "Excelente", batteryHealth: 93, batteryCycles: 172,
+    batteryStatus: "Normal", inspectedAt: "2026-10-01", status: "available", publication: "published",
+    featured: true, description: "Potência para fluxos profissionais, edição de vídeo e criação sem limites.",
+    observations: "Unidade demonstrativa. Sem informações reais de inspeção ou de estoque.",
+    charger: "Carregador USB-C", warrantyMonths: 3, images: ["/images/pro.jpg", "/images/studio.jpg"], demo: true,
+  },
+  {
+    id: "demo-003", createdAt: "2026-10-09T10:00:00Z", sku: "DEMO-003", slug: "macbook-air-m1-2020-demo-003",
+    name: 'MacBook Air 13" M1', series: "Air", chip: "Apple M1", year: 2020,
+    screen: '13,3" Retina', ram: 8, storage: 256, color: "Cinza-espacial",
+    price: 2990, condition: "Muito bom", batteryHealth: 89, batteryCycles: 276,
+    batteryStatus: "Normal", inspectedAt: "2026-10-01", status: "available", publication: "published",
+    featured: true, description: "Um excelente ponto de partida no ecossistema Mac, ágil no trabalho e nos estudos.",
+    observations: "Unidade demonstrativa. Sem informações reais de inspeção ou de estoque.",
+    charger: "Carregador USB-C", warrantyMonths: 3, images: ["/images/studio.jpg", "/images/air.jpg"], demo: true,
+  },
+  {
+    id: "demo-004", createdAt: "2026-10-19T10:00:00Z", sku: "DEMO-004", slug: "macbook-air-m3-2024-demo-004",
+    name: 'MacBook Air 13" M3', series: "Air", chip: "Apple M3", year: 2024,
+    screen: '13,6" Liquid Retina', ram: 16, storage: 256, color: "Estelar",
+    price: 5890, condition: "Excelente", batteryHealth: 98, batteryCycles: 46,
+    batteryStatus: "Normal", inspectedAt: "2026-10-01", status: "reserved", publication: "published",
+    featured: false, description: "Leve, rápido e feito para quem precisa de mobilidade sem abrir mão de desempenho.",
+    observations: "Unidade demonstrativa. Sem informações reais de inspeção ou de estoque.",
+    charger: "Carregador MagSafe", warrantyMonths: 3, images: ["/images/hero.jpg", "/images/air.jpg"], demo: true,
+  },
+  {
+    id: "demo-005", createdAt: "2026-10-11T10:00:00Z", sku: "DEMO-005", slug: "macbook-pro-m2-2022-demo-005",
+    name: 'MacBook Pro 13" M2', series: "Pro", chip: "Apple M2", year: 2022,
+    screen: '13,3" Retina', ram: 8, storage: 256, color: "Prateado",
+    price: 4590, condition: "Bom", batteryHealth: 86, batteryCycles: 319,
+    batteryStatus: "Normal", inspectedAt: "2026-10-01", status: "available", publication: "published",
+    featured: false, description: "Um MacBook Pro compacto para produtividade e tarefas criativas no dia a dia.",
+    observations: "Unidade demonstrativa. Sem informações reais de inspeção ou de estoque.",
+    charger: "Carregador USB-C", warrantyMonths: 3, images: ["/images/pro.jpg"], demo: true,
+  },
+  {
+    id: "demo-006", createdAt: "2026-10-07T10:00:00Z", sku: "DEMO-006", slug: "macbook-pro-16-m2-pro-2023-demo-006",
+    name: 'MacBook Pro 16" M2 Pro', series: "Pro", chip: "Apple M2 Pro", year: 2023,
+    screen: '16,2" Liquid Retina XDR', ram: 16, storage: 1024, color: "Cinza-espacial",
+    price: 8790, condition: "Muito bom", batteryHealth: 91, batteryCycles: 226,
+    batteryStatus: "Normal", inspectedAt: "2026-10-01", status: "sold", publication: "published",
+    featured: false, description: "Tela ampla, acabamento premium e recursos para fluxos de trabalho exigentes.",
+    observations: "Unidade demonstrativa. Sem informações reais de inspeção ou de estoque.",
+    charger: "Carregador MagSafe", warrantyMonths: 3, images: ["/images/air.jpg", "/images/studio.jpg"], demo: true,
+  },
+];

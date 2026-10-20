@@ -1,17 +1,8 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
-  cacheComponents: true,
-  partialPrefetching: true,
-  turbopack: {
-    rules: {
-      "*.css": {
-        loaders: ["@tailwindcss/turbopack"],
-        as: "*.css",
-      },
-    },
-  },
+  turbopack: { root: process.cwd() },
+  experimental: { serverActions: { bodySizeLimit: "48mb" } },
 };
 
 export default nextConfig;
