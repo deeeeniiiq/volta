@@ -19,6 +19,8 @@ npm run dev
 
 Visite `http://localhost:3000` para ver a landing page e o catálogo de demonstração. **Todos os dados de aparelhos, preços, estado, bateria, garantia e imagens nesse modo são exemplos fictícios.** Não há login de demonstração. A área administrativa exige um Supabase configurado.
 
+Para conhecer a aparência do dashboard sem autenticação, abra `/admin/previa`. Essa prévia é pública, somente leitura e usa apenas dados fictícios locais. Ela não consulta o banco nem permite cadastrar ou editar unidades. O painel real em `/admin` continua exigindo conta autorizada e segundo fator.
+
 ## Ativar banco, fotos e os dois administradores
 
 1. Crie um projeto no [Supabase](https://supabase.com/dashboard). Aguarde o banco estar pronto.

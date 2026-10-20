@@ -10,6 +10,6 @@ export default async function AdminLogin({ searchParams }: { searchParams: Promi
     <section className="auth-panel"><div className="auth-card"><span className="section-kicker">PAINEL PRIVADO</span><h2>Bem-vindo de volta.</h2><p>Acesse com sua conta de administrador para gerenciar aparelhos, fotos e disponibilidade.</p>
       {reason === "config" && <div className="auth-message">A integração com Supabase ainda não foi configurada. Veja o arquivo README.md do projeto.</div>}
       {reason === "denied" && <div className="auth-message">Essa conta não possui permissão administrativa. Solicite a inclusão do seu ID na lista de administradores.</div>}
-      <LoginForm /><Link className="auth-back" href="/"><ArrowLeft size={16} /> Voltar ao site</Link>
+      <LoginForm /><p style={{ marginTop: 24, fontSize: 13 }}><Link href="/admin/previa" style={{ textDecoration: "underline" }}>Ver prévia do painel sem login</Link></p><Link className="auth-back" href="/"><ArrowLeft size={16} /> Voltar ao site</Link>
     </div></section></main>;
 }
