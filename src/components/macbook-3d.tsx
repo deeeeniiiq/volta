@@ -46,13 +46,13 @@ function createScreenTexture() {
   const c = canvas.getContext("2d");
   if (!c) return null;
   const gradient = c.createLinearGradient(0, 0, 1024, 680);
-  gradient.addColorStop(0, "#0b1524"); gradient.addColorStop(1, "#1b2c43");
+  gradient.addColorStop(0, "#14191b"); gradient.addColorStop(1, "#323a3d");
   c.fillStyle = gradient; c.fillRect(0, 0, 1024, 680);
-  c.fillStyle = "#355875";
+  c.fillStyle = "#606d72";
   c.beginPath(); c.moveTo(0, 550); c.bezierCurveTo(340, 120, 580, 650, 1024, 90); c.lineTo(1024, 680); c.lineTo(0, 680); c.fill();
-  c.fillStyle = "#7392a2";
+  c.fillStyle = "#a4afb2";
   c.beginPath(); c.moveTo(0, 680); c.bezierCurveTo(360, 400, 510, 530, 1024, 215); c.lineTo(1024, 680); c.fill();
-  c.fillStyle = "#c4bdaf";
+  c.fillStyle = "#d8dad7";
   c.beginPath(); c.moveTo(370, 680); c.bezierCurveTo(650, 390, 760, 430, 1024, 350); c.lineTo(1024, 680); c.fill();
   const texture = new CanvasTexture(canvas);
   texture.colorSpace = SRGBColorSpace;

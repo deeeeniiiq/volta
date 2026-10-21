@@ -13,7 +13,7 @@ export const dynamic = "force-dynamic";
 export default async function CatalogPage() {
   const products = await getPublicProducts();
   return <><SiteHeader />{!isConfigured() && <DemoBanner />}<main id="conteudo" className="sf-site">
-    <section className="sf-catalog-hero"><div className="container"><p className="sf-kicker">CATÁLOGO VOLTA.</p><h1>Um Mac para<br />cada momento.</h1><p>Compare configurações, estado de conservação e saúde da bateria. Cada anúncio corresponde a uma unidade.</p><div className="sf-catalog-rule"><span>ESCOLHA COM INFORMAÇÃO</span><span>{products.length} {products.length === 1 ? "UNIDADE CADASTRADA" : "UNIDADES CADASTRADAS"}</span></div></div></section>
+    <section className="sf-catalog-hero"><div className="container"><p className="sf-kicker">VOLTA. / CATÁLOGO</p><h1>Escolha o que<br />vem depois.</h1><p>Encontre um MacBook para o seu próximo capítulo. Compare configurações, conservação e bateria em fichas individuais.</p><div className="sf-catalog-rule"><span>CADA UNIDADE TEM UMA HISTÓRIA</span><span>{products.length} {products.length === 1 ? "UNIDADE CADASTRADA" : "UNIDADES CADASTRADAS"}</span></div></div></section>
     <Suspense fallback={<div className="container page-loading">Carregando catálogo…</div>}><CatalogClient products={products} /></Suspense>
   </main><SiteFooter /></>;
 }
