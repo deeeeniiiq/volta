@@ -11,7 +11,7 @@ export function LoginForm() {
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault(); setError("");
     const supabase = browserClient();
-    if (!supabase) { setError("Configure NEXT_PUBLIC_SUPABASE_URL e NEXT_PUBLIC_SUPABASE_ANON_KEY no ambiente."); return; }
+    if (!supabase) { setError("Configure a URL e a chave pública do Supabase no ambiente."); return; }
     const form = new FormData(event.currentTarget);
     setLoading(true);
     const { error: result } = await supabase.auth.signInWithPassword({ email: String(form.get("email")), password: String(form.get("password")) });

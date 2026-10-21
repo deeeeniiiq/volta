@@ -1,5 +1,5 @@
 "use client";
-import Image from "next/image";
+/* eslint-disable @next/next/no-img-element -- O QR TOTP é um SVG data URI privado que next/image rejeita. */
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { ArrowRight } from "lucide-react";
@@ -32,9 +32,9 @@ export function MfaSetup() {
   async function enroll() {
     const supabase = browserClient(); if (!supabase) return;
     setBusy(true); setError("");
-    const { data, error } = await supabase.auth.mfa.enroll({ factorType: "totp", friendlyName: "volta admin" });
+    const { data, error } = await supabase.auth.mfa.enroll({ factorType: "totp", friendlyName: `volta admin ${Date.now()}` });
     setBusy(false);
-    if (error || !data?.totp) { setError("Não foi possível ativar o autenticador. Tente novamente."); return; }
+    if (error || !data?.totp) { setError(`Não foi possível ativar o autenticador${error?.code ? ` (${error.code})` : ""}. Tente novamente.`); return; }
     setFactorId(data.id); setQr(data.totp.qr_code); setSecret(data.totp.secret);
   }
   async function verify(event: React.FormEvent) {
@@ -49,7 +49,7 @@ export function MfaSetup() {
   }
   if (!ready) return <p className="helper-copy">Verificando sua conta...</p>;
   return <div>{!factorId && <div><p className="helper-copy">Abra um aplicativo como Google Authenticator ou Microsoft Authenticator e escaneie o QR Code que será exibido.</p><button className="button button-dark" disabled={busy} onClick={enroll}>Ativar autenticação de dois fatores <ArrowRight size={17} /></button></div>}
-    {factorId && <form onSubmit={verify}>{qr && <><p className="helper-copy">Escaneie este QR Code no aplicativo autenticador:</p><Image src={qr} alt="QR Code para cadastrar o segundo fator" width={195} height={195} unoptimized className="mfa-qr" /><p className="helper-copy">Código manual de recuperação do cadastro:</p><p className="mfa-code">{secret}</p></>}
+    {factorId && <form onSubmit={verify}>{qr && <><p className="helper-copy">Escaneie este QR Code no aplicativo autenticador:</p><img src={qr} alt="QR Code para cadastrar o segundo fator" width={195} height={195} className="mfa-qr" /><p className="helper-copy">Chave de configuração manual (mantenha em segredo):</p><p className="mfa-code">{secret}</p></>}
       <div><label htmlFor="mfa-code">Código de 6 dígitos</label><input id="mfa-code" inputMode="numeric" autoComplete="one-time-code" pattern="[0-9]{6}" maxLength={6} value={code} onChange={(e) => setCode(e.target.value.replace(/\D/g, ""))} placeholder="000000" required /></div>
       {error && <p className="admin-error" role="alert">{error}</p>}
       <button className="button button-dark" disabled={busy || code.length !== 6}>{busy ? "Verificando..." : "Verificar e entrar"} <ArrowRight size={17} /></button>

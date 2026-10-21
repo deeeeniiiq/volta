@@ -27,7 +27,7 @@ export default async function Home() {
               <h1>O próximo capítulo<br /><span>começa aqui.</span></h1>
               <p className="sf-hero-description">MacBooks para seguir em frente. Cada unidade apresentada com o cuidado, a clareza e os detalhes que a sua escolha merece.</p>
               <div className="sf-hero-actions">
-                <Link href="/catalogo" className="sf-primary-link">Encontrar meu Mac <ArrowUpRight size={18} aria-hidden="true" /></Link>
+                <Link href="/encontre-seu-mac" className="sf-primary-link">Encontrar meu Mac <ArrowUpRight size={18} aria-hidden="true" /></Link>
                 <Link href="/#criterios" className="sf-inline-link">Nossa seleção <ChevronRight size={17} aria-hidden="true" /></Link>
               </div>
               <div className="sf-hero-notes"><span>Uma ficha por unidade</span><span>Bateria às claras</span><span>Escolha com calma</span></div>

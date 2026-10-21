@@ -3,6 +3,8 @@ import "./globals.css";
 import "./storefront.css";
 import "./volta-redesign.css";
 import "./volta-theme.css";
+import "./admin-polish.css";
+import "./finance.css";
 
 export const metadata: Metadata = {
   title: { default: "volta. — MacBooks seminovos com todos os detalhes", template: "%s | volta." },
