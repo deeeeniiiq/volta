@@ -15,17 +15,19 @@ export function SiteHeader() {
           <nav className="sf-nav" aria-label="Navegação principal">
             <Link href="/encontre-seu-mac">Encontre seu Mac</Link>
             <Link href="/catalogo">MacBooks</Link>
-            <Link href="/#criterios">Nossa seleção</Link>
-            <Link href="/#duvidas">Perguntas</Link>
+            <Link href="/#criterios">Informações</Link>
+            <Link href="/comparar">Comparar</Link>
+            <Link href="/#duvidas">Dúvidas frequentes</Link>
           </nav>
-          <div className="sf-header-actions"><ThemeToggle /><Link href="/catalogo" className="sf-header-link">Explorar <span className="sf-header-link-icon"><ArrowUpRight size={15} aria-hidden="true" /></span></Link></div>
+          <div className="sf-header-actions"><ThemeToggle /><Link href="/catalogo" className="sf-header-link">Ver catálogo <ArrowUpRight size={16} aria-hidden="true" /></Link></div>
           <button className="sf-menu-trigger" type="button" aria-label={open ? "Fechar menu" : "Abrir menu"} aria-expanded={open} aria-controls="sf-mobile-nav" onClick={() => setOpen(!open)}>{open ? <X size={22} /> : <Menu size={22} />}</button>
         </div>
         <nav id="sf-mobile-nav" className={`sf-mobile-nav ${open ? "is-open" : ""}`} aria-label="Navegação móvel">
           <Link href="/encontre-seu-mac" onClick={() => setOpen(false)}>Encontre seu Mac</Link>
           <Link href="/catalogo" onClick={() => setOpen(false)}>MacBooks</Link>
-          <Link href="/#criterios" onClick={() => setOpen(false)}>Nossa seleção</Link>
-          <Link href="/#duvidas" onClick={() => setOpen(false)}>Perguntas</Link>
+          <Link href="/#criterios" onClick={() => setOpen(false)}>Informações</Link>
+          <Link href="/comparar" onClick={() => setOpen(false)}>Comparar unidades</Link>
+          <Link href="/#duvidas" onClick={() => setOpen(false)}>Dúvidas frequentes</Link>
         </nav>
       </header>
     </>
