@@ -1,6 +1,10 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import "./storefront.css";
+import "./experience.css";
+import "./polish.css";
+import "./selection.css";
+import "./refinement.css";
 
 export const metadata: Metadata = {
   title: { default: "volta. — MacBooks seminovos", template: "%s | volta." },
@@ -10,7 +14,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return <html lang="pt-BR" data-scroll-behavior="smooth" suppressHydrationWarning>
-    <head><script dangerouslySetInnerHTML={{ __html: `try{var p=localStorage.getItem("volta-theme");var d=p==="dark"||(p!=="light"&&matchMedia("(prefers-color-scheme: dark)").matches);document.documentElement.dataset.theme=d?"dark":"light";document.documentElement.style.colorScheme=d?"dark":"light"}catch(e){}` }} /></head>
+    <head><script dangerouslySetInnerHTML={{ __html: `try{var p=localStorage.getItem("volta-theme");var d=p==="dark"||(p!=="light"&&matchMedia("(prefers-color-scheme: dark)").matches);document.documentElement.dataset.theme=d?"dark":"light"}catch(e){}` }} /></head>
     <body>{children}</body>
   </html>;
 }

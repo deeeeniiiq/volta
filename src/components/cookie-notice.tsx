@@ -30,7 +30,7 @@ export function CookieNotice() {
   };
   return <aside className="sf-cookie-banner" aria-labelledby="sf-cookie-heading">
     <h2 id="sf-cookie-heading">Cookies e privacidade</h2>
-    <p>Usamos armazenamento local para registrar este aviso e cookies técnicos necessários à autenticação administrativa quando aplicável. Não há cookies de publicidade configurados nesta versão. <Link href="/cookies">Saiba mais</Link>.</p>
+    <p>Usamos armazenamento local e cookies técnicos. Sem cookies de publicidade nesta versão. <Link href="/cookies">Saiba mais</Link>.</p>
     <div className="sf-cookie-actions"><button type="button" onClick={dismiss} className="sf-cookie-accept">Entendi</button><Link href="/privacidade" className="sf-cookie-secondary">Privacidade e dados</Link></div>
   </aside>;
 }

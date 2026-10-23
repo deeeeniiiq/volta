@@ -18,7 +18,6 @@ function read(): Preference {
 function apply(preference: Preference) {
   const dark = preference === "dark" || (preference === "system" && matchMedia("(prefers-color-scheme: dark)").matches);
   document.documentElement.dataset.theme = dark ? "dark" : "light";
-  document.documentElement.style.colorScheme = dark ? "dark" : "light";
 }
 
 export function ThemeToggle() {
