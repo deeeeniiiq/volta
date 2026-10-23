@@ -1,9 +1,11 @@
 "use client";
-import { useActionState } from "react";
+import { useActionState, useState } from "react";
 import Link from "next/link";
 import { useFormStatus } from "react-dom";
 import { Save } from "lucide-react";
 import { saveProductAction, type EditorState } from "@/app/admin/actions";
+import { brl } from "@/lib/finance";
+import { profitOnCost, marginPercent } from "@/lib/margin";
 
 export type ModelOption = { id: string; name: string; series: string; chip: string; year: number; screen: string };
 export type EditableUnit = {
@@ -22,6 +24,9 @@ function SubmitButton() {
 
 export function ProductEditor({ models, product, linkedPurchase }: { models: ModelOption[]; product?: EditableUnit; linkedPurchase?: string }) {
   const [state, formAction] = useActionState(saveProductAction, initial);
+  const [price, setPrice] = useState(product ? (product.price_cents / 100).toFixed(2) : "");
+  const [cost, setCost] = useState(product ? (product.cost_cents / 100).toFixed(2) : "");
+  const margin = profitOnCost(Math.round(Number(price) * 100), cost ? Math.round(Number(cost) * 100) : null);
   const today = new Date().toLocaleDateString("en-CA", { timeZone: "America/Sao_Paulo" });
   return <form className="admin-form" action={formAction} encType="multipart/form-data">
     {product && <input type="hidden" name="id" value={product.id} />}
@@ -32,9 +37,10 @@ export function ProductEditor({ models, product, linkedPurchase }: { models: Mod
       <div className="admin-field"><label htmlFor="color">Cor *</label><input name="color" id="color" placeholder="Cinza-espacial" defaultValue={product?.color ?? ""} required /></div>
       <div className="admin-field"><label htmlFor="ram">Memória RAM (GB) *</label><input name="ram" id="ram" type="number" min="1" max="256" defaultValue={product?.ram_gb ?? 8} required /></div>
       <div className="admin-field"><label htmlFor="storage">SSD (GB) *</label><input name="storage" id="storage" type="number" min="64" max="16000" defaultValue={product?.storage_gb ?? 256} required /></div>
-      <div className="admin-field"><label htmlFor="price">Preço de venda (R$) *</label><input name="price" id="price" type="number" step="0.01" min="0" defaultValue={product ? (product.price_cents / 100).toFixed(2) : ""} required /></div>
-      <div className="admin-field"><label htmlFor="cost">Custo de aquisição (R$, privado) *</label><input name="cost" id="cost" type="number" step="0.01" min="0" defaultValue={product ? (product.cost_cents / 100).toFixed(2) : "0"} readOnly={Boolean(linkedPurchase)} required /><small>{linkedPurchase ? `Calculado pelos pagamentos da compra “${linkedPurchase}” no Financeiro.` : "Somente administradores têm acesso."}</small></div>
+      <div className="admin-field"><label htmlFor="price">Preço de venda (R$) *</label><input name="price" id="price" type="number" step="0.01" min="0" value={price} onChange={(event) => setPrice(event.target.value)} required /></div>
+      <div className="admin-field"><label htmlFor="cost">Valor pago pela unidade (R$, privado) *</label><input name="cost" id="cost" type="number" step="0.01" min="0" value={cost} onChange={(event) => setCost(event.target.value)} readOnly={Boolean(linkedPurchase)} required /><small>{linkedPurchase ? `Calculado pelos pagamentos da compra “${linkedPurchase}” no Financeiro.` : "Inclua o custo total conhecido da unidade. Apenas administradores veem este valor."}</small></div>
     </div>
+    <div className="admin-editor-margin" aria-live="polite"><div><span>Lucro bruto estimado</span><strong className={margin && margin.profitCents < 0 ? "is-negative" : ""}>{margin ? brl(margin.profitCents) : "Informe custo e preço"}</strong><small>Preço de venda menos valor pago</small></div><div><span>Margem sobre custo</span><strong className={margin && margin.percent < 0 ? "is-negative" : ""}>{margin ? marginPercent(margin.percent) : "—"}</strong><small>Lucro ÷ valor pago, antes de taxas</small></div></div>
     <div className="admin-divider" />
     <div className="admin-form-section-head"><span className="admin-step">02</span><div><h2>Bateria e conservação</h2><p>Documente o estado real do aparelho para uma ficha transparente.</p></div></div>
     <div className="admin-form-grid">

@@ -7,6 +7,8 @@ import "./selection.css";
 import "./refinement.css";
 import "./admin-polish.css";
 import "./finance.css";
+import "./admin-dashboard.css";
+import "./battery-polish.css";
 
 export const metadata: Metadata = {
   title: { default: "volta. — MacBooks seminovos", template: "%s | volta." },

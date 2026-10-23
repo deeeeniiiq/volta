@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "test:db": "node scripts/verify-db.mjs"
+    "test:db": "node scripts/verify-db.mjs",
+    "test:margin": "node --test tests/margin.test.mjs"
   },
   "dependencies": {
     "@supabase/ssr": "^0.12.7",

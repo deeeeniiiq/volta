@@ -1,0 +1,229 @@
+/* Volta inventory desk. This layer only styles the dashboard composition. */
+.admin-shell .admin-pagehead h1 {font-size:clamp(34px,3.4vw,46px);letter-spacing:-.055em}
+.admin-shell .admin-pagehead p {font-size:13px}
+.admin-command {display:grid;grid-template-columns:minmax(0,1.45fr) minmax(260px,.75fr);min-height:257px;overflow:hidden;border:1px solid #303035;border-radius:16px;background:#141417}
+.admin-command-primary {display:flex;flex-direction:column;justify-content:center;min-width:0;padding:32px clamp(25px,3.2vw,46px)}
+.admin-command-number {display:flex;align-items:baseline;flex-wrap:wrap;gap:8px 18px;margin:20px 0 11px}
+.admin-command-number strong {color:#f4f4f6;font-size:clamp(39px,4.3vw,62px);line-height:1;font-weight:630;letter-spacing:-.065em;font-variant-numeric:tabular-nums}
+.admin-command-number strong.is-negative {color:#f7aba4}
+.admin-command-number span {color:#b0b0b9;font-size:12px}
+.admin-command-primary p {max-width:390px;margin:0;color:#888891;font-size:12px;line-height:1.55}
+.admin-command-ledger {display:flex;flex-direction:column;justify-content:center;padding:13px 33px;border-left:1px solid #303035;background:#18181b}
+.admin-command-ledger>div {display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:63px;border-bottom:1px solid #323236}
+.admin-command-ledger>div:last-child {border-bottom:0}
+.admin-command-ledger span {color:#a9a9b2;font-size:11px}
+.admin-command-ledger strong {color:#ededf0;font-size:18px;font-weight:620;letter-spacing:-.035em;font-variant-numeric:tabular-nums;white-space:nowrap}
+.admin-command-ledger .admin-command-return strong {color:#9cdeb4;font-size:25px}
+.admin-command-ledger .admin-command-return strong.is-negative {color:#f7aba4}
+.admin-insight-grid {display:grid;grid-template-columns:minmax(0,1.58fr) minmax(270px,.72fr);gap:15px;margin:15px 0 13px}
+.admin-margin-chart,.admin-stock-panel {min-width:0;min-height:335px;padding:26px 28px;border:1px solid #303035;border-radius:15px;background:#141417}
+.admin-panel-heading {display:flex;align-items:end;justify-content:space-between;gap:14px}
+.admin-panel-heading h2 {margin:8px 0 0;color:#f0f0f3;font-size:20px;line-height:1.2;letter-spacing:-.04em;font-weight:650}
+.admin-panel-heading>span {color:#8f8f98;font-size:11px;white-space:nowrap}
+.admin-chart-context {margin:8px 0 19px;color:#878790;font-size:11px}
+.admin-chart-rows {display:grid;gap:14px}
+.admin-chart-row {display:grid;grid-template-columns:minmax(122px,1.04fr) minmax(80px,1.65fr) 54px;align-items:center;gap:14px}
+.admin-chart-name {min-width:0}
+.admin-chart-name strong {display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#e3e3e8;font-size:11px;font-weight:590}
+.admin-chart-name small {display:block;margin-top:2px;color:#777780;font-size:10px}
+.admin-chart-track {position:relative;height:9px;overflow:hidden;border-radius:6px;background:#2a2a2f}
+.admin-chart-rows.has-loss .admin-chart-track:before {content:"";position:absolute;z-index:1;top:0;bottom:0;left:50%;width:1px;background:#909098}
+.admin-chart-rows.has-loss .admin-chart-fill {position:absolute;top:0}
+.admin-chart-fill {display:block;height:100%;min-width:2px;border-radius:6px;background:#83cfa0;transform-origin:left center;animation:admin-bar-in .55s cubic-bezier(.2,.8,.2,1) both}
+.admin-chart-fill.is-negative {background:#df8b84}
+.admin-chart-value {color:#a5e4bb;font-size:11px;text-align:right;font-weight:650;font-variant-numeric:tabular-nums}
+.admin-chart-value.is-negative {color:#f7aba4}
+.admin-chart-axis {display:flex;justify-content:space-between;margin:13px 54px 0 calc(38.6% + 4px);color:#696971;font-size:10px;font-variant-numeric:tabular-nums}
+.admin-chart-empty {display:flex;align-items:center;min-height:205px;margin:0;color:#94949e;font-size:12px}
+.admin-stock-list {margin-top:24px}
+.admin-stock-list>div {display:flex;justify-content:space-between;align-items:center;min-height:46px;border-bottom:1px solid #303035}
+.admin-stock-list span {color:#afafb8;font-size:12px}
+.admin-stock-list strong {color:#f0f0f3;font-size:18px;line-height:1;font-weight:600;font-variant-numeric:tabular-nums}
+.admin-stock-list .needs-attention strong {color:#f0c48e}
+.admin-stock-panel p {margin:18px 0 0;color:#85858e;font-size:11px;line-height:1.5}
+.admin-method-note {max-width:860px;margin:0 0 25px;color:#8b8b94;font-size:11px;line-height:1.6}
+.admin-shell .admin-inventory-toolbar {margin-top:3px}
+.admin-shell .admin-tablewrap {box-shadow:none}
+.admin-shell .admin-margin-table th {background:#1a1a1d}
+.admin-shell .admin-margin-table tbody tr:hover {background:#1c1c20}
+.admin-shell .admin-margin-badge {background:#1b3325;color:#a9e5bc}
+.admin-shell .admin-margin-badge.is-negative {background:#382421;color:#f7aba4}
+.admin-shell .admin-simulator {margin-bottom:35px}
+.admin-shell .admin-simulator summary {min-height:69px}
+.admin-shell .admin-simulator-open {color:#b8cdfa}
+.admin-shell .admin-simulator-foot a,.admin-shell .admin-margin-table td a {color:#b8cdfa}
+.admin-shell .admin-editor-margin strong {color:#b9f2cc}
+@keyframes admin-bar-in {from {transform:scaleX(0);opacity:.45} to {transform:scaleX(1);opacity:1}}
+@media(max-width:1000px) {.admin-insight-grid {grid-template-columns:1fr}.admin-stock-panel {min-height:0}.admin-stock-list {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 22px}.admin-chart-axis {margin-left:calc(38.6% + 4px)}}
+@media(max-width:750px) {.admin-command {grid-template-columns:1fr}.admin-command-primary {padding:28px}.admin-command-ledger {padding:10px 27px;border-left:0;border-top:1px solid #303035}.admin-command-ledger>div {min-height:52px}.admin-command-number {margin:15px 0 9px}.admin-insight-grid {gap:12px;margin-top:12px}.admin-margin-chart,.admin-stock-panel {padding:23px}.admin-chart-row {grid-template-columns:minmax(100px,1fr) minmax(65px,1.35fr) 52px;gap:10px}.admin-chart-axis {margin-left:calc(40% + 4px)}}
+@media(max-width:470px) {.admin-command-number strong {font-size:36px}.admin-command-ledger strong {font-size:16px}.admin-chart-row {grid-template-columns:minmax(78px,1fr) minmax(44px,1fr) 45px;gap:7px}.admin-chart-name strong {font-size:10px}.admin-chart-name small {font-size:9px}.admin-chart-value {font-size:10px}.admin-chart-axis {margin:12px 45px 0 40%}.admin-panel-heading>span {display:none}}
+@media(prefers-reduced-motion:reduce) {.admin-chart-fill {animation:none}}
+
+/* A calmer inventory surface: editorial numbers, open sections and fewer boxes. */
+.admin-shell .sr-only {position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;white-space:nowrap!important;border:0!important}
+.admin-shell .admin-pagehead {margin-bottom:18px}
+.admin-shell .admin-pagehead .section-kicker {color:#a7a7af;font-size:11px;letter-spacing:.08em}
+.admin-shell .admin-pagehead h1 {margin:9px 0 6px;font-size:clamp(38px,3.4vw,48px);font-weight:620}
+.admin-shell .admin-pagehead p {margin-bottom:0;color:#aaaab4;font-size:14px}
+.admin-command {grid-template-columns:minmax(0,1.45fr) minmax(260px,.75fr);min-height:207px;gap:30px;border:0;border-bottom:1px solid #37373b;border-radius:0;background:transparent}
+.admin-command-primary {padding:25px 0 29px}
+.admin-command-label {color:#b8b8c1;font-size:14px;font-weight:600}
+.admin-command-number {margin:13px 0 10px}
+.admin-command-number strong {font-size:clamp(47px,4.6vw,68px);font-weight:620}
+.admin-command-primary p {max-width:520px;color:#9999a3;font-size:13px}
+.admin-command-ledger {padding:6px 0 6px 30px;border-left:1px solid #2f2f34;background:transparent}
+.admin-command-ledger>div {min-height:57px;border-bottom-color:#2c2c30}
+.admin-command-ledger span {font-size:12px;color:#a8a8b1}
+.admin-command-ledger strong {font-size:19px}
+.admin-insight-grid {grid-template-columns:minmax(0,1.6fr) minmax(275px,.7fr);gap:42px;margin:26px 0 8px}
+.admin-margin-chart,.admin-stock-panel {min-height:0;padding:0 0 20px;border:0;border-radius:0;background:transparent}
+.admin-stock-panel {padding-left:34px;border-left:1px solid #2c2c31}
+.admin-panel-heading {align-items:center}
+.admin-panel-heading h2 {font-size:24px}
+.admin-chart-selector select {min-height:38px;padding:7px 25px 7px 10px;border:1px solid #424249;border-radius:8px;background:#19191d;color:#dedee3;font-size:12px;cursor:pointer}
+.admin-chart-selector select:focus-visible {outline:2px solid #a7bcde;outline-offset:2px}
+.admin-chart-context {margin:8px 0 15px;color:#9999a3;font-size:12px}
+.admin-chart-rows {gap:3px}
+.admin-chart-row {width:100%;min-height:49px;padding:5px 7px;margin:0 -7px;border:0;border-radius:8px;background:transparent;text-align:left;cursor:pointer;transition:background .16s ease,transform .16s ease}
+.admin-chart-row:hover,.admin-chart-row:focus-visible {background:#1b1b1f}
+.admin-chart-row:hover .admin-chart-name strong {color:#fff}
+.admin-chart-row:focus-visible {outline:2px solid #9faac7;outline-offset:2px}
+.admin-chart-name strong {font-size:12px}
+.admin-chart-name small {font-size:11px}
+.admin-chart-fill.is-capital {background:#9b9ba5}
+.admin-chart-value.is-capital {color:#dadade}
+.admin-chart-axis {margin-top:10px;color:#8d8d96;font-size:11px}
+.admin-stock-list {margin-top:16px}
+.admin-stock-list>button {display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;min-height:48px;padding:0 7px;margin-left:-7px;border:0;border-bottom:1px solid #2e2e33;border-radius:0;background:transparent;text-align:left;cursor:pointer;transition:background .16s ease,color .16s ease}
+.admin-stock-list>button:hover,.admin-stock-list>button[aria-pressed="true"] {background:#19191d}
+.admin-stock-list>button:focus-visible {outline:2px solid #9faac7;outline-offset:2px}
+.admin-stock-list>button span {font-size:13px}
+.admin-stock-list>button strong {font-size:18px}
+.admin-stock-attention {display:grid;gap:4px;margin-top:23px;padding:0 0 0 15px;border-left:2px solid #b68b5d}
+.admin-stock-attention>span {color:#cca87e;font-size:11px;font-weight:700}
+.admin-stock-attention strong {color:#f1f1f3;font-size:13px;font-weight:650}
+.admin-stock-attention small {color:#a2a2ad;font-size:11px}
+.admin-stock-attention a,.admin-stock-attention button {display:inline-flex;align-items:center;gap:5px;justify-self:start;margin-top:7px;padding:0;border:0;background:none;color:#bcd0f5;font-size:12px;font-weight:650}
+.admin-stock-attention :is(a,button):hover {text-decoration:underline;text-underline-offset:3px}
+.admin-method-note {margin-top:2px;margin-bottom:26px;color:#9b9ba4;font-size:11px}
+.admin-shell .admin-simulator {border-color:#37373d;background:#121215}
+.admin-shell .admin-simulator summary {min-height:76px}
+.admin-shell .admin-simulator summary strong {font-size:16px}
+.admin-shell .admin-simulator summary small {font-size:12px}
+.admin-shell .admin-inventory {scroll-margin-top:22px}
+.admin-shell .admin-section-line {font-size:11px;letter-spacing:.09em}
+.admin-shell .admin-search input,.admin-shell .admin-toolbar-select select {font-size:13px}
+.admin-shell .admin-margin-table th {color:#9f9fa9;font-size:11px}
+.admin-shell .admin-margin-table td {font-size:13px}
+.admin-shell .admin-margin-table td strong {font-size:13px}
+.admin-shell .admin-margin-table td small {font-size:11px}
+.admin-shell .admin-preview-status {min-height:0;padding:7px 10px;border:1px solid #393940;border-radius:50px;color:#d2d2da;font-size:11px}
+.admin-preview .admin-preview-disabled {opacity:1;background:#f1f1f4;color:#17171b;cursor:not-allowed}
+.admin-preview .admin-preview-disabled:hover {transform:none;filter:none}
+.admin-preview .admin-header-nav a[aria-current="location"] {background:#242428;color:#fff}
+.admin-mobile-units {display:none}
+@media(max-width:700px) {
+  .admin-shell .admin-inventory .admin-tablewrap {display:none}
+  .admin-mobile-units {display:grid;gap:10px}
+  .admin-mobile-unit {padding:20px;border:1px solid #37373d;border-radius:13px;background:#151518}
+  .admin-mobile-unit-head {display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+  .admin-mobile-unit-head strong {display:block;color:#f1f1f4;font-size:15px;line-height:1.3;font-weight:650}
+  .admin-mobile-unit-head small {display:block;margin-top:3px;color:#90909b;font-size:11px}
+  .admin-mobile-unit-status {flex:0 0 auto;padding:5px 8px;border:1px solid #474750;border-radius:50px;color:#bfbfc8;font-size:10px}
+  .admin-mobile-unit-status.available {border-color:#42614c;color:#b2e3bf}
+  .admin-mobile-unit-status.reserved {border-color:#62513b;color:#dfbc8b}
+  .admin-mobile-unit-main {display:grid;grid-template-columns:1fr auto;align-items:end;gap:12px;margin:20px 0 16px}
+  .admin-mobile-unit-main span,.admin-mobile-unit-detail span {display:block;margin-bottom:5px;color:#9a9aa5;font-size:11px}
+  .admin-mobile-unit-main strong {color:#f0f0f3;font-size:24px;letter-spacing:-.045em;font-weight:650;font-variant-numeric:tabular-nums}
+  .admin-mobile-unit-main>div:last-child {text-align:right}
+  .admin-mobile-unit-main>div:last-child strong {color:#a9e5bc;font-size:20px}
+  .admin-mobile-unit-main strong.is-negative,.admin-mobile-unit-detail strong.is-negative {color:#f7aba4!important}
+  .admin-mobile-unit-detail {display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:14px 0;border-top:1px solid #303035;border-bottom:1px solid #303035}
+  .admin-mobile-unit-detail strong {color:#d6d6de;font-size:13px;font-weight:620;font-variant-numeric:tabular-nums}
+  .admin-mobile-unit-foot {display:flex;justify-content:flex-end;align-items:center;gap:10px;min-height:38px;padding-top:12px}
+  .admin-mobile-unit-foot form {margin-right:auto}
+  .admin-mobile-unit-foot a {display:inline-flex;align-items:center;gap:5px;color:#b8cdfa;font-size:12px;font-weight:650}
+}
+@media(max-width:1000px) {.admin-insight-grid {gap:17px}.admin-stock-panel {padding:22px 0 9px;border-left:0;border-top:1px solid #303035}}
+@media(max-width:750px) {.admin-command {grid-template-columns:1fr;gap:0}.admin-command-primary {padding:25px 0 18px}.admin-command-ledger {padding:0 0 16px;border:0}.admin-insight-grid {margin-top:25px}.admin-chart-selector select {max-width:170px}.admin-stock-panel {padding-top:22px}}
+@media(max-width:470px) {.admin-command-number strong {font-size:43px}.admin-panel-heading h2 {font-size:21px}.admin-chart-selector select {max-width:135px;font-size:11px}.admin-chart-name strong {font-size:10px}.admin-chart-value {font-size:10px}.admin-stock-list>button span {font-size:12px}}
+@media(prefers-reduced-motion:reduce) {.admin-chart-row,.admin-stock-list>button {transition:none}}
+
+/* The result chart gets the full reading width; stock is a separate scan row. */
+.admin-shell .admin-pagehead {margin-bottom:28px}
+.admin-command {min-height:222px;gap:46px}
+.admin-command-primary {padding-block:31px 36px}
+.admin-command-primary p {font-size:14px;line-height:1.55}
+.admin-command-ledger {padding-left:42px}
+.admin-command-ledger>div {min-height:62px}
+.admin-command-ledger span {font-size:13px}
+.admin-insight-grid {grid-template-columns:minmax(0,1fr);gap:35px;margin:36px 0 20px}
+.admin-margin-chart {padding:0 0 31px;border-bottom:1px solid #303035}
+.admin-panel-heading h2 {font-size:clamp(26px,2.3vw,31px)}
+.admin-chart-selector select {min-height:43px;padding-inline:14px 30px;font-size:13px}
+.admin-chart-context {margin:11px 0 24px;font-size:13px;color:#aaaab4}
+.admin-chart-rows {gap:4px}
+.admin-chart-row {grid-template-columns:minmax(205px,25%) minmax(0,1fr) minmax(86px,auto);gap:21px;min-height:70px;padding:10px 12px;margin:0 -12px;border-bottom:1px solid #242429;border-radius:7px}
+.admin-chart-name strong {overflow:visible;text-overflow:clip;white-space:normal;color:#f1f1f4;font-size:16px;line-height:1.2;font-weight:640;letter-spacing:-.025em}
+.admin-chart-name small {margin-top:5px;color:#aaaab3;font-size:12px;letter-spacing:.025em}
+.admin-chart-track {height:14px;border-radius:100px;background:#25292a}
+.admin-chart-fill {border-radius:100px;background:linear-gradient(90deg,#6bbd8b,#91dfaa)}
+.admin-chart-fill.is-negative {background:linear-gradient(90deg,#c96362,#ef8c86)}
+.admin-chart-value {color:#a8eabc;font-size:15px;font-weight:680;white-space:nowrap}
+.admin-chart-axis {margin:14px 96px 0 calc(25% + 21px);color:#a3a3ac;font-size:12px}
+.admin-stock-panel {padding:0;border:0}
+.admin-stock-panel .admin-panel-heading h2 {font-size:24px}
+.admin-stock-panel .admin-panel-heading>span {font-size:13px;color:#b2b2bb}
+.admin-stock-list {display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;margin-top:19px}
+.admin-stock-list>button {display:flex;flex-direction:column;align-items:flex-start;justify-content:space-between;gap:15px;min-height:100px;padding:17px 18px;margin:0;border:1px solid #313138;border-radius:11px;background:#141416;transition:border-color .2s ease,background .2s ease,transform .2s ease}
+.admin-stock-list>button:hover,.admin-stock-list>button[aria-pressed="true"] {background:#1b1d1e;border-color:#60866d;transform:translateY(-2px)}
+.admin-stock-list>button span {font-size:14px;color:#b8b8c1}
+.admin-stock-list>button strong {font-size:29px;letter-spacing:-.05em}
+.admin-stock-attention {grid-template-columns:minmax(0,1fr) auto;align-items:center;column-gap:14px;margin-top:18px;padding:16px 18px;border:1px solid #594630;border-left:3px solid #dda763;border-radius:8px;background:#1c1915}
+.admin-stock-attention>span {font-size:12px}
+.admin-stock-attention strong {grid-column:1;font-size:14px}
+.admin-stock-attention small {grid-column:1;font-size:12px}
+.admin-stock-attention :is(a,button) {grid-column:2;grid-row:1 / span 3;margin:0;font-size:13px}
+.admin-method-note {max-width:none;margin-bottom:34px;font-size:12px;line-height:1.65}
+.admin-shell .admin-margin-table th {font-size:12px}
+.admin-shell .admin-margin-table td,.admin-shell .admin-margin-table td strong {font-size:14px}
+.admin-shell .admin-margin-table td small {font-size:12px;color:#aaaab3}
+.admin-shell .admin-section-line {font-size:12px}
+@media(max-width:900px) {
+  .admin-command {gap:22px}
+  .admin-command-ledger {padding-left:24px}
+  .admin-chart-row {grid-template-columns:minmax(170px,27%) minmax(0,1fr) minmax(78px,auto);gap:15px}
+  .admin-chart-axis {margin-left:calc(27% + 15px);margin-right:87px}
+  .admin-stock-list {gap:10px}
+}
+@media(max-width:750px) {
+  .admin-command {gap:0}
+  .admin-command-ledger {padding:0 0 16px}
+  .admin-insight-grid {gap:27px;margin-top:33px}
+  .admin-chart-row {grid-template-columns:minmax(0,1fr) auto;gap:8px 12px;min-height:91px;padding:13px 10px;margin-inline:-10px}
+  .admin-chart-name {grid-column:1;grid-row:1}
+  .admin-chart-name strong {font-size:15px}
+  .admin-chart-value {grid-column:2;grid-row:1;font-size:14px}
+  .admin-chart-track {grid-column:1 / -1;grid-row:2;height:13px}
+  .admin-chart-axis {margin:13px 0 0}
+  .admin-stock-list {grid-template-columns:repeat(2,minmax(0,1fr))}
+  .admin-stock-attention {grid-template-columns:1fr auto}
+  .admin-stock-attention strong,.admin-stock-attention small {grid-column:1}
+  .admin-stock-attention :is(a,button) {grid-column:2;grid-row:1 / span 3}
+}
+@media(max-width:470px) {
+  .admin-shell .admin-pagehead {margin-bottom:22px}
+  .admin-panel-heading {align-items:flex-start;gap:12px;flex-wrap:wrap}
+  .admin-panel-heading h2 {font-size:26px}
+  .admin-chart-selector {width:100%}
+  .admin-chart-selector select {width:100%;max-width:none;font-size:13px}
+  .admin-chart-context {font-size:12px}
+  .admin-chart-name strong {font-size:14px}
+  .admin-chart-name small {font-size:11px}
+  .admin-chart-value {font-size:14px}
+  .admin-stock-list>button {min-height:94px;padding:15px}
+  .admin-stock-list>button span {font-size:13px}
+  .admin-stock-attention {grid-template-columns:1fr}
+  .admin-stock-attention :is(a,button) {grid-column:1;grid-row:auto;margin-top:7px}
+}
+@media(prefers-reduced-motion:reduce) {.admin-stock-list>button {transition:none}}

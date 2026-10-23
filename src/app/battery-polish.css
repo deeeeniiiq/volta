@@ -1,0 +1,29 @@
+/* Resolution-independent battery illustration, paired with the measured capacity. */
+.sf-battery-report[data-battery-tone="healthy"] { --battery-accent:#6fd49a; --battery-soft:#9be6b9; --battery-deep:#399b66; --battery-border:#40755a; }
+.sf-battery-report[data-battery-tone="moderate"] { --battery-accent:#f3aa5c; --battery-soft:#ffd098; --battery-deep:#b9752c; --battery-border:#93653b; }
+.sf-battery-report[data-battery-tone="low"] { --battery-accent:#f16f72; --battery-soft:#ff9b9d; --battery-deep:#b83e46; --battery-border:#93474b; }
+.sf-battery-report[data-battery-tone="unknown"] { --battery-accent:#a2a2aa; --battery-soft:#c9c9d0; --battery-deep:#686874; --battery-border:#48484e; }
+.sf-battery-report .sf-report-card-heading { margin-bottom:28px; }
+.sf-battery-report h3 { margin-bottom:30px; }
+.sf-battery-report .sf-report-state { color:var(--battery-soft); border-color:var(--battery-border); }
+.sf-battery-report .sf-report-state::before { background:var(--battery-accent); }
+.sf-battery-report .sf-battery-overview { display:flex; align-items:center; justify-content:space-between; margin:2px 0 28px; gap:24px; }
+.sf-battery-report .sf-capacity-number>strong { color:var(--battery-accent); font-size:clamp(76px,6.5vw,96px); font-variant-numeric:tabular-nums; }
+.sf-battery-report .sf-capacity-number>strong>span { font-size:.4em; }
+.sf-battery-report .sf-capacity-number>span { color:#b6b6bd; font-size:13px; }
+.sf-battery-glyph { width:126px; flex:0 0 auto; }
+.sf-battery-glyph svg { display:block; width:100%; height:auto; overflow:visible; }
+.sf-battery-report .sf-battery-scale { height:4px; margin-bottom:28px; background:#25272a; }
+.sf-battery-report .sf-battery-scale>span { background:var(--battery-accent); }
+@media(max-width:580px) {
+  .sf-battery-glyph { width:104px; }
+  .sf-battery-report .sf-capacity-number>strong { font-size:80px; }
+  .sf-battery-report .sf-battery-overview { gap:16px; }
+}
+@media(max-width:370px) {
+  .sf-battery-glyph { width:88px; }
+  .sf-battery-report .sf-capacity-number>strong { font-size:70px; }
+}
+@media(prefers-reduced-motion:reduce) {
+  .sf-battery-report .sf-battery-scale>span { animation:none; }
+}
