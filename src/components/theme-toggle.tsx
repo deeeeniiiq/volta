@@ -10,9 +10,9 @@ const icons = { system: Monitor, light: Sun, dark: Moon };
 
 function read(): Preference {
   try {
-    const value = localStorage.getItem("volta-theme") ?? localStorage.getItem("volta.theme.v1") ?? "dark";
-    return value === "light" || value === "dark" || value === "system" ? value : "dark";
-  } catch { return "dark"; }
+    const value = localStorage.getItem("volta-theme");
+    return value === "light" || value === "dark" ? value : "system";
+  } catch { return "system"; }
 }
 
 function apply(preference: Preference) {
@@ -21,7 +21,7 @@ function apply(preference: Preference) {
 }
 
 export function ThemeToggle() {
-  const [preference, setPreference] = useState<Preference>("dark");
+  const [preference, setPreference] = useState<Preference>("system");
   useEffect(() => {
     const initial = read();
     // Synchronize the label with the theme set before hydration.

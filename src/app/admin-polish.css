@@ -1,4 +1,12 @@
 /* volta. / administrative workspace */
+.auth-shell {background:#f4f4f2;color:#202625}
+.auth-back {color:#2f3b34}
+.auth-card label {color:#49534c}
+.auth-card input {border-color:#cbd2cb;color:#252d27}
+.auth-art {background:#1b1e1e}
+.auth-art:after {background:linear-gradient(0deg,#1b1e1e,#1b1e1e66),url('/images/volta-detail-campaign.png') center/cover;opacity:.45}
+.auth-art h1 em {color:#dedfdb}
+.auth-art p,.helper-copy {color:#a7ada8}
 .admin-shell {
   --admin-canvas:#f2f3f1;
   --admin-surface:#fcfcfb;
