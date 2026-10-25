@@ -117,6 +117,26 @@ export async function changeAvailability(formData: FormData) {
   revalidatePath("/admin"); revalidatePath("/catalogo"); revalidatePath("/");
 }
 
+export async function updateIntakeValues(input: { id: string; purchaseCnyFen: number; exchangeRateCnyPerBrl: number; priceCents: number }): Promise<{ error?: string }> {
+  const { supabase } = await requireAdmin();
+  const parsed = z.object({
+    id: z.string().uuid(),
+    purchaseCnyFen: z.number().int().min(0).max(100_000_000),
+    exchangeRateCnyPerBrl: z.number().positive().max(1000),
+    priceCents: z.number().int().min(0).max(100_000_000),
+  }).safeParse(input);
+  if (!parsed.success) return { error: "Confira os valores antes de salvar." };
+  const { id, purchaseCnyFen, exchangeRateCnyPerBrl, priceCents } = parsed.data;
+  const { data, error } = await supabase.from("inventory_intake").update({
+    purchase_cny_fen: purchaseCnyFen,
+    exchange_rate_cny_per_brl: exchangeRateCnyPerBrl,
+    estimated_sale_cents: priceCents,
+  }).eq("id", id).select("id").maybeSingle();
+  if (error || !data) return { error: "Não foi possível salvar esta unidade. Atualize o painel e tente novamente." };
+  revalidatePath("/admin");
+  return {};
+}
+
 export async function removeProductImage(formData: FormData) {
   const { supabase } = await requireAdmin();
   const id = z.string().uuid().safeParse(formData.get("id"));

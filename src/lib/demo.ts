@@ -11,7 +11,7 @@ export const demoMacbooks: Macbook[] = [
     batteryStatus: "Normal", inspectedAt: "2026-10-01", status: "available", publication: "published",
     featured: true, description: "MacBook Air com chip M2, 16 GB de memória e SSD de 512 GB. Tela Liquid Retina de 13,6 polegadas.",
     observations: "Unidade demonstrativa. Sem informações reais de inspeção ou de estoque.",
-    charger: "Carregador MagSafe", warrantyMonths: 3, images: ["/images/apple/air-overview-cutout-ai.png", "/images/apple/air-profile-cutout-ai.png", "/images/apple/air-m2-cutout.png"], demo: true,
+    charger: "Carregador MagSafe", warrantyMonths: 3, images: ["/images/apple/air-overview-cutout-ai.png", "/images/apple/air-profile-cutout-ai.png"], demo: true,
   },
   {
     id: "demo-002", createdAt: "2026-10-17T10:00:00Z", sku: "DEMO-002", slug: "macbook-pro-m3-pro-2023-demo-002",
@@ -21,7 +21,7 @@ export const demoMacbooks: Macbook[] = [
     batteryStatus: "Normal", inspectedAt: "2026-10-01", status: "available", publication: "published",
     featured: true, description: "MacBook Pro com chip M3 Pro, 18 GB de memória e SSD de 512 GB. Tela Liquid Retina XDR de 14,2 polegadas.",
     observations: "Unidade demonstrativa. Sem informações reais de inspeção ou de estoque.",
-    charger: "Carregador USB-C", warrantyMonths: 3, images: ["/images/apple/macbook-pro-overview.jpg", "/images/apple/pro-profile-cutout-ai.png", "/images/apple/pro-m3-cutout.png"], demo: true,
+    charger: "Carregador USB-C", warrantyMonths: 3, images: ["/images/apple/pro-m3-cutout.png", "/images/apple/pro-profile-cutout-ai.png"], demo: true,
   },
   {
     id: "demo-003", createdAt: "2026-10-09T10:00:00Z", sku: "DEMO-003", slug: "macbook-air-m1-2020-demo-003",

@@ -71,6 +71,14 @@ async function main() {
     ok('migração de salvamento transacional aplicada');
     await db.exec(fs.readFileSync(path.join(migrationDir, '202610210001_finance.sql'), 'utf8'));
     ok('migração financeira aplicada');
+    await db.exec(fs.readFileSync(path.join(migrationDir, '202610230001_inventory_intake.sql'), 'utf8'));
+    await db.exec(fs.readFileSync(path.join(migrationDir, '202610240001_inventory_intake_011.sql'), 'utf8'));
+    const intakeTotals = await value('select count(*)::int as units, sum(cost_brl_cents)::bigint as cost, sum(estimated_sale_cents)::bigint as sale from public.inventory_intake');
+    assert.deepEqual(intakeTotals, { units: 11, cost: 1221393, sale: 2275000 });
+    assert.equal((await value("select cost_brl_cents from public.inventory_intake where sku = 'VOLTA-IMPORT-002'")).cost_brl_cents, 105820);
+    const eleventh = await value("select model_name, cost_brl_cents, estimated_sale_cents from public.inventory_intake where sku = 'VOLTA-IMPORT-011'");
+    assert.deepEqual(eleventh, { model_name: 'MacBook Pro 2017 · 16″ informado · confirmar modelo', cost_brl_cents: 114754, estimated_sale_cents: 250000 });
+    ok('onze MacBooks em preparação com cotação e totais corretos');
 
     await db.query('insert into auth.users(id) values ($1),($2),($3)', [admin1, admin2, admin3]);
     await db.query('insert into public.admin_users(user_id) values ($1),($2)', [admin1, admin2]);

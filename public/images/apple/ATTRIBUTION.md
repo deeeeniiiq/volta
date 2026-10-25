@@ -1,5 +1,17 @@
 # Imagens oficiais Apple
 
+## MacBook Pro da geração 2017 no painel
+
+- `macbook-pro-2017-front.jpg`: https://www.apple.com/newsroom/images/product/mac/standard/new_2017_imac_macbook_pro_front_inline.jpg.large_2x.jpg
+- `macbook-pro-2017-angle.jpg`: https://www.apple.com/newsroom/images/product/mac/standard/apple_macbookpro_4_inline.jpg.large_2x.jpg
+- Página de origem: https://www.apple.com/br/newsroom/2017/06/imac-receives-major-update-featuring-more-powerful-graphics-faster-processors-thunderbolt-3-brighter-displays/
+
+As duas imagens são referências editoriais da linha, não fotografias nem provas da configuração das unidades em estoque.
+
+## Recortes transparentes no painel
+
+`macbook-pro-2017-cutout.png`, `macbook-pro-2018-cutout.png` e `macbook-pro-2019-cutout.png` foram derivados das fotografias Apple de referência desta pasta usando ImageGen para remover o fundo claro. A transparência foi verificada. São recortes ilustrativos editados, não fotos das unidades individuais nem imagens originais inalteradas da Apple.
+
 Origem: https://www.apple.com/newsroom/2023/10/apple-unveils-new-macbook-pro-featuring-m3-chips/
 
 Fotografias de referência do MacBook Pro (2023), publicadas pela Apple em 30 de outubro de 2023. Copyright Apple. Os direitos permanecem com a Apple; estes arquivos não são licenciados como os modelos 3D.
@@ -32,6 +44,15 @@ Base: https://www.apple.com/newsroom/images/product/mac/standard/
 - `macbook-pro-m2pro.jpg`: Apple-MacBook-Pro-M2-Pro-and-M2-Max-2-up-230117_big.jpg.large_2x.jpg, da base product/mac/standard. Fonte: https://www.apple.com/newsroom/2023/01/apple-unveils-macbook-pro-featuring-m2-pro-and-m2-max/
 
 Copyright Apple em todas as imagens. As fotos de demonstração são referências de linha e geração; podem mostrar tamanhos, acabamentos e configurações diferentes dos exemplos de anúncios.
+
+## Referências para o painel de entrada (2017–2019)
+
+As miniaturas do painel representam a geração, não a unidade comprada. Ano, tamanho, configuração e estado visual só podem ser confirmados com inspeção e fotografias próprias.
+
+- `macbook-pro-2018-reference.jpg`: MacBook Pro de 13 e 15 polegadas da [Apple Newsroom, julho de 2018](https://www.apple.com/newsroom/2018/07/apple-updates-macbook-pro-with-faster-performance-and-new-features-for-pros/).
+- `macbook-pro-2019-reference.jpg`: MacBook Pro da [Apple Newsroom, maio de 2019](https://www.apple.com/newsroom/2019/05/apple-introduces-first-8-core-macbook-pro-the-fastest-mac-notebook-ever/).
+
+Copyright Apple; uso editorial ilustrativo. Estas imagens não certificam as especificações dos aparelhos em estoque.
 
 ## Arquivos oficiais com transparência
 

@@ -1,6 +1,7 @@
 "use client";
-import { useActionState, useState } from "react";
+import { useActionState, useEffect, useRef, useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { useFormStatus } from "react-dom";
 import { Save } from "lucide-react";
 import { saveProductAction, type EditorState } from "@/app/admin/actions";
@@ -24,6 +25,15 @@ function SubmitButton() {
 
 export function ProductEditor({ models, product, linkedPurchase }: { models: ModelOption[]; product?: EditableUnit; linkedPurchase?: string }) {
   const [state, formAction] = useActionState(saveProductAction, initial);
+  const [photoPreviews, setPhotoPreviews] = useState<{ name: string; url: string }[]>([]);
+  const previewUrls = useRef<string[]>([]);
+  useEffect(() => () => previewUrls.current.forEach((url) => URL.revokeObjectURL(url)), []);
+  function previewPhotos(files: FileList | null) {
+    previewUrls.current.forEach((url) => URL.revokeObjectURL(url));
+    const previews = Array.from(files ?? []).filter((file) => file.type.startsWith("image/")).map((file) => ({ name: file.name, url: URL.createObjectURL(file) }));
+    previewUrls.current = previews.map((item) => item.url);
+    setPhotoPreviews(previews);
+  }
   const [price, setPrice] = useState(product ? (product.price_cents / 100).toFixed(2) : "");
   const [cost, setCost] = useState(product ? (product.cost_cents / 100).toFixed(2) : "");
   const margin = profitOnCost(Math.round(Number(price) * 100), cost ? Math.round(Number(cost) * 100) : null);
@@ -57,7 +67,7 @@ export function ProductEditor({ models, product, linkedPurchase }: { models: Mod
     </div>
     <div className="admin-divider" />
     <div className="admin-form-section-head"><span className="admin-step">03</span><div><h2>Imagens e publicação</h2><p>Adicione fotografias reais e escolha quando o anúncio ficará visível.</p></div></div>
-    <div className="admin-form-grid"><div className="admin-field span-2"><label htmlFor="images">Fotos reais do MacBook (até 8 imagens no total)</label><input id="images" name="images" type="file" accept="image/jpeg,image/png,image/webp" multiple /><small>JPG, PNG ou WebP de até 5 MB por foto. Imagens novas serão acrescentadas às existentes.</small></div>
+    <div className="admin-form-grid"><div className="admin-field span-2"><label htmlFor="images">Fotos reais do MacBook (até 8 imagens no total)</label><input id="images" name="images" type="file" accept="image/jpeg,image/png,image/webp" multiple onChange={(event) => previewPhotos(event.target.files)} /><small>Fotografe tampa, tela ligada, teclado, laterais e eventuais marcas de uso. JPG, PNG ou WebP de até 5 MB por foto.</small>{photoPreviews.length > 0 && <div className="admin-photo-preview" aria-label="Prévia das fotos selecionadas">{photoPreviews.map((photo, index) => <figure key={`${photo.name}-${index}`}><Image src={photo.url} alt={`Prévia ${index + 1}: ${photo.name}`} width={280} height={210} unoptimized /><figcaption>{photo.name}</figcaption></figure>)}</div>}</div>
       <div className="admin-field"><label htmlFor="publication_status">Visibilidade do anúncio</label><select id="publication_status" name="publication_status" defaultValue={product?.publication_status ?? "draft"}><option value="draft">Rascunho privado</option><option value="published">Publicado no catálogo</option><option value="archived">Arquivado</option></select></div>
       <div className="admin-field admin-feature-field"><label className="admin-check"><input type="checkbox" name="featured" defaultChecked={product?.featured ?? false} /><span><strong>Destacar na página inicial</strong><small>Exibir esta unidade na seleção principal do site.</small></span></label></div></div>
     {state.error && <p className="admin-error" role="alert">{state.error}</p>}
