@@ -1,0 +1,91 @@
+{% comment %}
+  Volta storefront. Editorial model photography is separate from actual inventory.
+  Settings expose copy, reference imagery and the featured collection to the merchant.
+{% endcomment %}
+{{ 'component-card.css' | asset_url | stylesheet_tag }}
+{{ 'component-price.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'volta.js' | asset_url }}" defer="defer"></script>
+{%- assign featured = section.settings.collection | default: collections.all -%}
+<volta-experience class="volta-home" id="Volta-{{ section.id }}">
+  <div class="volta-progress" aria-hidden="true"></div>
+  <section class="volta-hero volta-width" aria-labelledby="Hero-{{ section.id }}">
+    <div class="volta-hero-copy" data-volta-reveal>
+      <p class="volta-kicker">VOLTA. / MACBOOKS SEMINOVOS</p>
+      <h1 id="Hero-{{ section.id }}">{{ section.settings.heading | escape }}<span>{{ section.settings.heading_secondary | escape }}</span></h1>
+      <p class="volta-intro">{{ section.settings.description | escape }}</p>
+      <div class="volta-actions"><a class="volta-button" href="{{ routes.all_products_collection_url }}">Ver catálogo <span aria-hidden="true">↗</span></a><a class="volta-text-link" href="#Linhas-{{ section.id }}">Conhecer as linhas <span aria-hidden="true">↓</span></a></div>
+      <div class="volta-hero-note"><span class="volta-dot" aria-hidden="true"></span>Configuração, bateria e conservação por unidade.</div>
+    </div>
+    <div class="volta-stage" data-volta-reveal>
+      <div class="volta-stage-top"><span>EM FOCO / AS LINHAS</span><div class="volta-tabs" role="tablist" aria-label="Linhas de MacBook"><button type="button" role="tab" id="ProTab-{{ section.id }}" aria-controls="ProPanel-{{ section.id }}" aria-selected="true" data-volta-tab="pro">Pro</button><button type="button" role="tab" id="AirTab-{{ section.id }}" aria-controls="AirPanel-{{ section.id }}" aria-selected="false" tabindex="-1" data-volta-tab="air">Air</button></div></div>
+      <div class="volta-panel" role="tabpanel" id="ProPanel-{{ section.id }}" aria-labelledby="ProTab-{{ section.id }}" data-volta-panel="pro">
+        <div class="volta-stage-photo" data-volta-parallax>
+          {%- if section.settings.pro_image != blank -%}
+            {{ section.settings.pro_image | image_url: width: 1800 | image_tag: widths: '600, 1000, 1400, 1800', sizes: '(max-width: 749px) 94vw, 57vw', fetchpriority: 'high', alt: 'MacBook Pro, imagem de referência' }}
+          {%- else -%}
+            <img src="{{ 'volta-pro-2019.png' | asset_url }}" alt="MacBook Pro 2019, imagem de referência" width="1616" height="973" fetchpriority="high">
+          {%- endif -%}
+        </div><div class="volta-stage-caption"><div><span>MACBOOK PRO</span><strong>Configurações para criar e trabalhar.</strong></div><span>01 / 02</span></div>
+      </div>
+      <div class="volta-panel" role="tabpanel" id="AirPanel-{{ section.id }}" aria-labelledby="AirTab-{{ section.id }}" data-volta-panel="air" hidden>
+        <div class="volta-stage-photo" data-volta-parallax>
+          {%- if section.settings.air_image != blank -%}
+            {{ section.settings.air_image | image_url: width: 1800 | image_tag: widths: '600, 1000, 1400, 1800', sizes: '(max-width: 749px) 94vw, 57vw', loading: 'lazy', alt: 'MacBook Air, imagem de referência' }}
+          {%- else -%}
+            <img src="{{ 'volta-air.png' | asset_url }}" alt="MacBook Air, imagem de referência com fundo recortado" width="1536" height="1024" loading="lazy">
+          {%- endif -%}
+        </div><div class="volta-stage-caption"><div><span>MACBOOK AIR</span><strong>Fino e leve para o dia a dia.</strong></div><span>02 / 02</span></div>
+      </div>
+      <p class="volta-reference">Imagens de referência das linhas. Confira a geração e as fotos de cada anúncio.</p>
+    </div>
+  </section>
+  <div class="volta-width volta-index"><a href="#Linhas-{{ section.id }}"><span>01</span> Conheça os modelos <span aria-hidden="true">↓</span></a><a href="{{ routes.all_products_collection_url }}"><span>02</span> Explore as unidades <span aria-hidden="true">↗</span></a><a href="#Detalhes-{{ section.id }}"><span>03</span> Veja os detalhes <span aria-hidden="true">↓</span></a></div>
+
+  <section class="volta-section volta-width" id="Linhas-{{ section.id }}" aria-labelledby="LinesTitle-{{ section.id }}">
+    <div class="volta-section-head" data-volta-reveal><div><p class="volta-kicker">ESCOLHA A SUA LINHA</p><h2 id="LinesTitle-{{ section.id }}">Air. Pro.<br><span>Qual é o seu Mac?</span></h2></div><p>Duas linhas. Diferentes configurações.<br>Conheça os modelos antes de escolher.</p></div>
+    <div class="volta-families">
+      <a class="volta-family" href="{{ routes.search_url }}?q=MacBook%20Air&type=product" data-volta-reveal><div class="volta-family-top"><span>01 / MOBILIDADE</span><span class="volta-circle" aria-hidden="true">↗</span></div><h3>MacBook Air.</h3><p>Design fino e leve.<br>Para acompanhar o seu dia.</p><img src="{{ 'volta-air.png' | asset_url }}" alt="MacBook Air, referência da linha" width="1536" height="1024" loading="lazy"><span class="volta-family-bottom">Explorar a linha Air <span aria-hidden="true">→</span></span></a>
+      <a class="volta-family" href="{{ routes.search_url }}?q=MacBook%20Pro&type=product" data-volta-reveal><div class="volta-family-top"><span>02 / CRIAÇÃO</span><span class="volta-circle" aria-hidden="true">↗</span></div><h3>MacBook Pro.</h3><p>Telas e configurações para<br>trabalhar, editar e criar.</p><img src="{{ 'volta-pro-2019.png' | asset_url }}" alt="MacBook Pro 2019, referência da linha" width="1616" height="973" loading="lazy"><span class="volta-family-bottom">Explorar a linha Pro <span aria-hidden="true">→</span></span></a>
+    </div>
+  </section>
+
+  {%- if featured.products_count > 0 -%}
+    <section class="volta-section volta-width" aria-labelledby="FeaturedTitle-{{ section.id }}"><div class="volta-section-head" data-volta-reveal><div><p class="volta-kicker">CATÁLOGO / SELEÇÃO ATUAL</p><h2 id="FeaturedTitle-{{ section.id }}">Unidades em destaque.</h2></div><a class="volta-text-link" href="{{ routes.all_products_collection_url }}">Ver catálogo completo ↗</a></div><div class="volta-product-grid">{%- for product in featured.products limit: 4 -%}<div data-volta-reveal>{% render 'card-product', card_product: product, media_aspect_ratio: 'square', show_secondary_image: true, lazy_load: true, section_id: section.id %}</div>{%- endfor -%}</div></section>
+  {%- endif -%}
+
+  <section class="volta-detail-section" id="Detalhes-{{ section.id }}" aria-labelledby="DetailTitle-{{ section.id }}"><div class="volta-width volta-detail-layout">
+    <div class="volta-detail-visual" data-volta-reveal><p class="volta-kicker">CADA MAC É UMA UNIDADE</p><h2 id="DetailTitle-{{ section.id }}">Tudo o que<br><span>você quer ver.</span></h2><img src="{{ 'volta-pro-2017.png' | asset_url }}" alt="MacBook Pro 2017, imagem de referência com fundo transparente" width="1543" height="1019" loading="lazy"><span class="volta-reference">MacBook Pro 2017 · imagem de referência</span></div>
+    <div class="volta-detail-list" data-volta-reveal>
+      <details open><summary><span>01</span>Configuração completa<span class="volta-plus" aria-hidden="true">+</span></summary><div><p>Processador, memória, armazenamento e ano. Compare a configuração de cada anúncio para escolher seu Mac.</p><div class="volta-detail-tags"><span>Processador</span><span>Memória</span><span>SSD</span></div></div></details>
+      <details><summary><span>02</span>Bateria e conservação<span class="volta-plus" aria-hidden="true">+</span></summary><div><p>Confira a capacidade da bateria, os ciclos e as observações de uso quando informados. As fotos da unidade mostram o estado do aparelho.</p><div class="volta-detail-tags"><span>Saúde da bateria</span><span>Ciclos</span><span>Fotos reais</span></div></div></details>
+      <details><summary><span>03</span>O que acompanha<span class="volta-plus" aria-hidden="true">+</span></summary><div><p>Veja quais acessórios estão incluídos no preço e as condições de entrega e garantia disponíveis no anúncio.</p><div class="volta-detail-tags"><span>Carregador</span><span>Acessórios</span><span>Condições de compra</span></div></div></details>
+      <a class="volta-text-link" href="{{ routes.all_products_collection_url }}">Conferir o catálogo <span aria-hidden="true">↗</span></a>
+    </div>
+  </div></section>
+
+  <section class="volta-section volta-width volta-faq" aria-labelledby="FAQ-{{ section.id }}"><div data-volta-reveal><p class="volta-kicker">ANTES DE COMPRAR</p><h2 id="FAQ-{{ section.id }}">Direto ao ponto.</h2><p>As informações que ajudam<br>na sua escolha.</p><a class="volta-text-link" href="{{ section.settings.contact_url | default: '/pages/contact' }}">Fale com a volta ↗</a></div><div class="volta-faq-list" data-volta-reveal>
+    <details><summary>As imagens mostram a unidade à venda?<span class="volta-plus" aria-hidden="true">+</span></summary><p>As imagens desta página apresentam as linhas MacBook. Confira as fotos e a descrição de cada anúncio para conhecer a condição da unidade.</p></details>
+    <details><summary>Por que o preço varia entre modelos iguais?<span class="volta-plus" aria-hidden="true">+</span></summary><p>Memória, armazenamento, bateria, conservação e acessórios podem variar. Cada unidade possui seu próprio preço e configuração.</p></details>
+    <details><summary>Onde vejo entrega e formas de pagamento?<span class="volta-plus" aria-hidden="true">+</span></summary><p>As opções disponíveis são apresentadas durante a compra. Para dúvidas sobre uma unidade ou sobre sua região, entre em contato com a loja.</p></details>
+  </div></section>
+  <section class="volta-closing volta-width" data-volta-reveal><span class="volta-kicker">VOLTA. / MACBOOKS SEMINOVOS</span><h2>{{ section.settings.closing_heading | escape }}</h2><a class="volta-button" href="{{ routes.all_products_collection_url }}">Explorar o catálogo <span aria-hidden="true">↗</span></a></section>
+  <div class="volta-width volta-disclosure">Imagens de referência Apple, com recorte de fundo para apresentação. A volta é uma loja independente, sem afiliação à Apple.</div>
+</volta-experience>
+{% schema %}
+{
+  "name": "volta · página inicial",
+  "tag": "section",
+  "class": "section-volta-home",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Título principal", "default": "MacBook." },
+    { "type": "text", "id": "heading_secondary", "label": "Segunda linha", "default": "Air e Pro." },
+    { "type": "textarea", "id": "description", "label": "Descrição", "default": "Explore os modelos. Escolha a configuração. Confira cada unidade em detalhe." },
+    { "type": "image_picker", "id": "pro_image", "label": "Imagem Pro — PNG transparente" },
+    { "type": "image_picker", "id": "air_image", "label": "Imagem Air — PNG transparente" },
+    { "type": "collection", "id": "collection", "label": "Coleção em destaque" },
+    { "type": "url", "id": "contact_url", "label": "Link para contato" },
+    { "type": "text", "id": "closing_heading", "label": "Chamada final", "default": "Explore os MacBooks." }
+  ],
+  "presets": [{ "name": "volta · página inicial" }]
+}
+{% endschema %}

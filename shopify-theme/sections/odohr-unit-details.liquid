@@ -1,0 +1,31 @@
+{%- liquid
+  assign odohr_battery = product.metafields.custom.battery_health.value
+  assign odohr_cycles = product.metafields.custom.cycle_count.value
+  assign odohr_condition = product.metafields.custom.condition.value
+  assign odohr_accessories = product.metafields.custom.included_accessories.value
+  assign odohr_year = product.metafields.custom.model_year.value
+-%}
+{%- if odohr_battery != blank or odohr_cycles != blank or odohr_condition != blank or odohr_accessories != blank or odohr_year != blank -%}
+  <section class="odohr-unit page-width" aria-labelledby="odohr-unit-heading">
+    <p class="odohr-eyebrow">DETALHES DO ANÚNCIO</p>
+    <h2 id="odohr-unit-heading">Informações desta unidade.</h2>
+    <div class="odohr-unit__grid">
+      {%- if odohr_year != blank -%}<div><span>Ano do modelo</span><strong>{{ odohr_year | escape }}</strong></div>{%- endif -%}
+      {%- if odohr_condition != blank -%}<div><span>Conservação informada</span><strong>{{ odohr_condition | escape }}</strong></div>{%- endif -%}
+      {%- if odohr_battery != blank -%}<div><span>Capacidade máxima da bateria</span><strong>{{ odohr_battery | escape }}%</strong></div>{%- endif -%}
+      {%- if odohr_cycles != blank -%}<div><span>Ciclos de carga informados</span><strong>{{ odohr_cycles | escape }}</strong></div>{%- endif -%}
+      {%- if odohr_accessories != blank -%}<div><span>Acessórios incluídos</span><strong>{{ odohr_accessories | escape }}</strong></div>{%- endif -%}
+    </div>
+    <p class="odohr-unit__note">Os dados acima são específicos do anúncio. Confira as fotos e a descrição antes de comprar.</p>
+  </section>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "volta · dados da unidade",
+  "tag": "section",
+  "class": "section-odohr-unit",
+  "settings": [],
+  "presets": [{ "name": "volta · dados da unidade" }]
+}
+{% endschema %}

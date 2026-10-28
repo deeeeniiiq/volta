@@ -1,0 +1,11 @@
+{
+  "sections": {
+    "odohr_home": {
+      "type": "volta-home",
+      "settings": {}
+    }
+  },
+  "order": [
+    "odohr_home"
+  ]
+}

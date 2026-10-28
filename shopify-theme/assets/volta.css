@@ -1,0 +1,149 @@
+/* Volta / monochrome storefront. Shared surfaces retain Dawn commerce behavior. */
+:root{--volta-bg:#050505;--volta-panel:#111113;--volta-text:#f5f5f7;--volta-muted:#a4a4aa;--volta-line:#29292d;--volta-ease:cubic-bezier(.22,1,.36,1);color-scheme:dark}
+html{scroll-behavior:smooth;scroll-padding-top:96px}
+body,.gradient{background:var(--volta-bg);color:var(--volta-text)}
+body,button,input,select,textarea{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif!important}
+body{letter-spacing:-.015em}
+h1,h2,h3,h4,.h0,.h1,.h2,.h3{font-family:inherit!important;font-weight:600;letter-spacing:-.045em}
+a,button,input,select,summary{-webkit-tap-highlight-color:transparent}
+:focus-visible{outline:2px solid #a1b9ff;outline-offset:5px}
+.header-wrapper,.header,.announcement-bar,.menu-drawer,.search-modal,.footer,.footer__content-bottom{background:var(--volta-bg)!important;color:var(--volta-text)}
+.header-wrapper--border-bottom,.footer{border-color:var(--volta-line)!important}
+.header{padding-block:14px!important;max-width:1440px}
+.header__heading-link .h2{color:var(--volta-text);font-size:36px;font-weight:750;letter-spacing:-.07em;line-height:1}
+.header__menu-item,.header__icon,.announcement-bar__message,.menu-drawer a,.footer a{color:var(--volta-text)!important}
+.header__menu-item{font-size:13px;transition:opacity .25s}
+.header__menu-item span{text-decoration:none!important}
+.header__menu-item:hover{opacity:.65}
+.announcement-bar__message{font-size:11px;letter-spacing:.045em;padding:9px 0;min-height:30px;color:var(--volta-muted)!important}
+.header__submenu,.predictive-search,.cart-drawer .drawer__inner{background:var(--volta-panel)!important}
+.button,.shopify-payment-button__button,.customer button{border-radius:100px!important;transition:transform .3s var(--volta-ease),background-color .25s;min-height:46px}
+.button:not(.button--secondary),.shopify-payment-button__button{background:#f5f5f7!important;color:#101010!important}
+.button:before,.button:after{box-shadow:none!important;border:0!important}
+.button:hover{transform:translateY(-2px)}
+.button--secondary{background:var(--volta-panel)!important;color:var(--volta-text)!important;border:1px solid var(--volta-line)!important}
+.field__input,.select__select,.customer .field input,textarea{background:var(--volta-panel)!important;color:var(--volta-text)!important;border-radius:12px!important}
+.field__label,.form__label{color:var(--volta-muted)!important}
+.field:after,.select:after{border-radius:12px}
+.card-wrapper .card{background:var(--volta-panel);border:1px solid var(--volta-line);border-radius:22px;overflow:hidden;transition:border-color .3s,transform .5s var(--volta-ease)}
+.card-wrapper:hover .card{border-color:#62626b;transform:translateY(-4px)}
+.card__media,.card__inner,.card .media{background:transparent!important}
+.card__media .media img{object-fit:contain!important;transition:opacity .45s,transform .65s var(--volta-ease)!important}
+.card-wrapper:hover .media.media--hover-effect>img:first-child:not(:only-child){opacity:0}
+.card__heading,.card__heading a,.price,.price-item,.product__title,.product__info-container,.rte,.collection-hero__title{color:var(--volta-text)!important}
+.card__heading{font-size:20px}
+.card__information{padding:22px!important}
+.card__content{padding:0!important}
+.card-information>.price{font-size:18px;margin-top:16px}
+.volta-empty{display:grid;grid-template-columns:1fr 1.1fr;align-items:center;gap:48px;min-height:540px;padding:60px 7%;border-top:1px solid var(--volta-line);border-bottom:1px solid var(--volta-line)}
+.volta-empty__copy{max-width:470px;text-align:left}
+.volta-empty__eyebrow{font-size:10px;font-weight:600;letter-spacing:.16em;color:var(--volta-muted)}
+.volta-empty h2{margin:22px 0 18px;font-size:clamp(38px,5vw,68px);line-height:1.06;letter-spacing:-.055em}
+.volta-empty p{margin:0;color:var(--volta-muted);font-size:16px;line-height:1.65}
+.volta-empty__link{display:inline-flex;align-items:center;gap:15px;margin-top:30px;color:var(--volta-text);font-size:14px;text-decoration:none;border-bottom:1px solid #777;padding-bottom:8px;transition:gap .35s var(--volta-ease),color .25s}
+.volta-empty__link:hover{gap:22px;color:#bdbdc5}
+.volta-empty img{display:block;width:100%;height:auto;max-height:380px;object-fit:contain}
+.product__media-wrapper .media,.product__media-wrapper .product__media{background:#0c0c0e!important;border-radius:20px;overflow:hidden}
+.product__media img{object-fit:contain!important}
+.product__title h1{font-size:clamp(34px,4vw,56px);line-height:1.08}
+.product-form__input input[type=radio]+label{border-radius:12px!important;transition:background-color .25s,color .25s}
+.footer__content-bottom-wrapper{color:var(--volta-muted)}
+.footer__content-top{padding-bottom:40px}
+.footer-block__brand-info .footer-block__heading{font-size:40px;letter-spacing:-.07em}
+.footer-block__details-content{font-size:13px;color:var(--volta-muted)}
+.volta-home{display:block;overflow:clip;background:var(--volta-bg);color:var(--volta-text)}
+.volta-home *{box-sizing:border-box}
+.volta-width{width:calc(100% - 96px);max-width:1320px;margin-inline:auto}
+.volta-home h1,.volta-home h2,.volta-home h3{color:var(--volta-text);margin:0}
+.volta-home h2{font-size:clamp(38px,4.5vw,66px);line-height:1.04;letter-spacing:-.05em}
+.volta-home h2 span{color:#929298}
+.volta-kicker{font-size:10px;font-weight:600;letter-spacing:.15em;color:var(--volta-muted);margin:0 0 26px}
+.volta-progress{position:fixed;inset:0 0 auto;z-index:100;height:2px;background:#d2d2d6;transform:scaleX(0);transform-origin:left;pointer-events:none}
+.volta-hero{display:grid;grid-template-columns:.85fr 1.15fr;gap:24px;align-items:center;min-height:690px;padding-block:70px 54px}
+.volta-hero-copy{position:relative;z-index:1}
+.volta-hero h1{font-size:clamp(72px,7.6vw,112px);line-height:.99;letter-spacing:-.065em;font-weight:600}
+.volta-hero h1 span{display:block;color:#a0a0a6}
+.volta-intro{max-width:340px;color:#b6b6bc;font-size:18px;line-height:1.6;margin:28px 0 32px}
+.volta-actions{display:flex;align-items:center;gap:25px;flex-wrap:wrap}
+.volta-button{display:inline-flex;justify-content:center;align-items:center;gap:30px;min-height:50px;padding:13px 23px;background:#f5f5f7;color:#101010!important;border:1px solid transparent;border-radius:100px;font-size:14px;font-weight:600;text-decoration:none;transition:transform .35s var(--volta-ease),background-color .25s}
+.volta-button:hover{background:#dcdce0;transform:translateY(-3px)}
+.volta-button>span{font-size:21px;font-weight:400;line-height:1}
+.volta-text-link{display:inline-flex;align-items:center;gap:14px;min-height:44px;color:var(--volta-text);text-decoration:none;font-size:13px;transition:color .25s,gap .35s var(--volta-ease)}
+.volta-text-link:hover{gap:19px;color:#bcbcc4}
+.volta-hero-note{display:flex;align-items:center;gap:8px;margin-top:38px;font-size:11px;color:var(--volta-muted)}
+.volta-dot{width:5px;height:5px;background:#9898a0;border-radius:50%;flex:none}
+.volta-stage{min-width:0;position:relative;padding:14px 0 0}
+.volta-stage-top,.volta-stage-caption{display:flex;align-items:center;justify-content:space-between;gap:14px}
+.volta-stage-top>span,.volta-stage-caption>span{font-size:9px;letter-spacing:.14em;color:#96969e}
+.volta-tabs{display:inline-flex;padding:4px;border:1px solid var(--volta-line);border-radius:100px;gap:3px}
+.volta-tabs button{min-width:56px;min-height:36px;border:0;border-radius:100px;color:#aaaab2;background:transparent;font-size:12px;cursor:pointer;transition:color .25s,background .25s}
+.volta-tabs button[aria-selected=true]{background:#f5f5f7;color:#111}
+.volta-panel[hidden]{display:none}
+.volta-stage-photo{height:420px;display:flex;align-items:center;justify-content:center;will-change:translate}
+.volta-stage-photo img{width:112%;max-width:112%;height:100%;object-fit:contain;display:block}
+.volta-stage-caption{border-top:1px solid var(--volta-line);padding-top:20px}
+.volta-stage-caption div>span{display:block;font-size:9px;letter-spacing:.14em;color:var(--volta-muted);margin-bottom:5px}
+.volta-stage-caption strong{font-size:15px;font-weight:500}
+.volta-reference{display:block;color:#8a8a92;font-size:10px;line-height:1.5;margin:17px 0 0}
+.volta-index{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--volta-line);border-bottom:1px solid var(--volta-line)}
+.volta-index a{display:flex;align-items:center;gap:18px;padding:23px 24px;color:#b8b8c0;text-decoration:none;font-size:11px;transition:background-color .25s}
+.volta-index a:first-child{padding-left:0}
+.volta-index a+a{border-left:1px solid var(--volta-line)}
+.volta-index a>span:first-child{color:#73737d;font-size:10px}
+.volta-index a>span:last-child{margin-left:auto;font-size:16px}
+.volta-index a:hover{background:#101012;color:#fff}
+.volta-section{padding-block:110px}
+.volta-section-head{display:flex;align-items:end;justify-content:space-between;gap:30px;margin-bottom:44px}
+.volta-section-head>p{color:var(--volta-muted);font-size:14px;line-height:1.7;margin:0;max-width:320px}
+.volta-families{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px}
+.volta-family{display:flex;flex-direction:column;min-width:0;overflow:hidden;padding:30px 34px 0;border-radius:24px;background:#111113;color:var(--volta-text);text-decoration:none;transition:background-color .3s,transform .6s var(--volta-ease)}
+.volta-family:hover{background:#17171a;transform:translateY(-5px)}
+.volta-family-top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:18px;font-size:9px;letter-spacing:.14em;color:#9898a2}
+.volta-circle{display:grid;place-items:center;width:32px;height:32px;border:1px solid #36363b;border-radius:50%;font-size:19px;letter-spacing:0;color:#d5d5db;transition:transform .4s}
+.volta-family:hover .volta-circle{transform:rotate(45deg)}
+.volta-family h3{font-size:clamp(32px,3.6vw,49px);line-height:1.1;letter-spacing:-.05em}
+.volta-family p{margin:14px 0 8px;font-size:15px;line-height:1.6;color:var(--volta-muted)}
+.volta-family img{width:100%;height:310px;object-fit:contain;display:block;margin:4px auto 8px;transition:transform .8s var(--volta-ease)}
+.volta-family:hover img{transform:translateY(-7px) scale(1.025)}
+.volta-family-bottom{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:24px 0;border-top:1px solid var(--volta-line);font-size:12px}
+.volta-product-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:20px}
+.volta-detail-section{padding-block:110px;border-block:1px solid var(--volta-line);background:#09090b}
+.volta-detail-layout{display:grid;grid-template-columns:1.1fr 1fr;gap:90px;align-items:center}
+.volta-detail-visual{min-width:0}
+.volta-detail-visual img{width:100%;height:300px;object-fit:contain;display:block;margin-top:30px}
+.volta-detail-visual .volta-reference{text-align:center}
+.volta-detail-list details,.volta-faq-list details{border-top:1px solid #323238}
+.volta-detail-list details:last-of-type,.volta-faq-list details:last-of-type{border-bottom:1px solid #323238}
+.volta-home summary{display:flex;align-items:center;gap:17px;min-height:85px;padding:22px 0;list-style:none;cursor:pointer;font-size:19px;font-weight:500;line-height:1.35}
+.volta-home summary::-webkit-details-marker{display:none}
+.volta-detail-list summary>span:first-child{font-size:10px;color:#85858e;letter-spacing:.08em;font-weight:400}
+.volta-plus{margin-left:auto;display:block;flex:none;color:#a6a6af;font-size:24px;font-weight:300;transition:transform .35s var(--volta-ease)}
+.volta-home details[open] .volta-plus{transform:rotate(45deg)}
+.volta-home details p{font-size:14px;line-height:1.8;color:var(--volta-muted);margin:0;padding:0 0 26px}
+.volta-home details[open]>div,.volta-home details[open]>p{animation:volta-enter .4s var(--volta-ease)}
+.volta-detail-tags{display:flex;flex-wrap:wrap;gap:7px;padding-bottom:28px}
+.volta-detail-tags span{padding:6px 10px;border:1px solid #34343b;border-radius:100px;font-size:10px;color:#c3c3cb}
+.volta-detail-list>.volta-text-link{margin-top:24px}
+.volta-faq{display:grid;grid-template-columns:.8fr 1.2fr;gap:100px}
+.volta-faq h2{font-size:clamp(36px,3.6vw,52px)}
+.volta-faq>div>p:not(.volta-kicker){color:var(--volta-muted);font-size:15px;line-height:1.7}
+.volta-faq-list summary{font-size:16px;min-height:78px}
+.volta-closing{padding:76px 32px 82px;text-align:center;background:#111113;border-radius:24px;margin-bottom:46px}
+.volta-closing .volta-kicker{display:block}
+.volta-closing h2{margin-bottom:30px;font-size:clamp(42px,5.5vw,80px)}
+.volta-disclosure{font-size:10px;color:#92929a;line-height:1.7;padding-bottom:38px}
+.odohr-unit{padding-block:70px;border-top:1px solid var(--volta-line)}
+.odohr-unit h2{font-size:clamp(30px,4vw,52px)}
+.odohr-unit__grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.odohr-unit__grid>div{display:flex;flex-direction:column;gap:20px;padding:24px;background:var(--volta-panel);border:1px solid var(--volta-line);border-radius:18px}
+.odohr-unit__grid span,.odohr-unit__note,.odohr-eyebrow{font-size:12px;color:var(--volta-muted)}
+.odohr-unit__grid strong{font-size:24px;line-height:1.25;overflow-wrap:anywhere}
+.volta-motion [data-volta-reveal]{opacity:0;transform:translateY(24px);transition:opacity .85s var(--volta-ease),transform .85s var(--volta-ease)}
+.volta-motion [data-volta-reveal].is-visible{opacity:1;transform:none}
+.volta-families [data-volta-reveal]:nth-child(2){transition-delay:.08s}
+@keyframes volta-enter{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+@media(min-width:1600px){.volta-hero{min-height:760px}.volta-stage-photo{height:460px}}
+@media(max-width:749px){.volta-empty{grid-template-columns:1fr;gap:10px;min-height:0;padding:48px 5% 32px}.volta-empty h2{font-size:42px}.volta-empty p{font-size:15px}.volta-empty img{max-height:240px}}
+@media(max-width:989px){.volta-width{width:calc(100% - 48px)}.volta-hero{grid-template-columns:1fr 1.1fr;gap:18px;min-height:600px;padding-block:55px}.volta-hero h1{font-size:clamp(56px,8vw,90px)}.volta-intro{font-size:16px}.volta-stage-photo{height:350px}.volta-actions{gap:12px}.volta-stage-top>span{font-size:8px}.volta-section{padding-block:80px}.volta-detail-layout,.volta-faq{gap:45px}.volta-family{padding-inline:25px}.volta-family img{height:260px}.volta-product-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:749px){html{scroll-padding-top:80px}.header{padding-block:12px!important}.header__heading-link .h2{font-size:32px}.volta-width{width:calc(100% - 36px)}.volta-hero{grid-template-columns:1fr;gap:42px;padding-block:52px 35px;min-height:0}.volta-hero h1{font-size:clamp(66px,16vw,96px)}.volta-kicker{font-size:9px;margin-bottom:23px}.volta-intro{max-width:340px;margin:24px 0 25px;font-size:16px}.volta-hero-note{margin-top:25px;font-size:10px}.volta-stage{padding:0}.volta-stage-top{padding-inline:4px}.volta-stage-photo{height:clamp(225px,63vw,380px)}.volta-stage-photo img{width:106%;max-width:106%}.volta-stage-caption{padding-top:16px}.volta-stage-caption strong{font-size:14px}.volta-reference{font-size:9px}.volta-index{grid-template-columns:1fr}.volta-index a{padding:17px 0;font-size:11px}.volta-index a+a{border-left:0;border-top:1px solid var(--volta-line)}.volta-section{padding-block:70px}.volta-section-head{display:block;margin-bottom:30px}.volta-section-head>p,.volta-section-head>.volta-text-link{margin-top:20px}.volta-home h2{font-size:clamp(36px,9vw,52px)}.volta-families{grid-template-columns:1fr;gap:18px}.volta-family{padding:23px 24px 0;border-radius:20px}.volta-family h3{font-size:38px}.volta-family img{height:260px}.volta-family-bottom{padding-block:20px}.volta-product-grid{gap:12px}.volta-product-grid .card__heading{font-size:16px}.volta-product-grid .card__information{padding:16px!important}.volta-detail-section{padding-block:70px}.volta-detail-layout,.volta-faq{grid-template-columns:1fr;gap:38px}.volta-detail-visual img{height:260px;margin-top:15px}.volta-home summary{font-size:16px;min-height:76px;gap:12px}.volta-home details p{font-size:14px}.volta-faq-list summary{font-size:15px}.volta-closing{padding:55px 20px 60px}.volta-closing h2{font-size:43px}.volta-disclosure{padding-bottom:28px}.odohr-unit__grid{grid-template-columns:1fr}.volta-hero-note{line-height:1.6}.volta-families [data-volta-reveal]:nth-child(2){transition-delay:0s}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.volta-home *, .volta-home *:before,.volta-home *:after{animation:none!important;transition:none!important;translate:none!important}.volta-motion [data-volta-reveal]{opacity:1;transform:none}.card-wrapper .card,.card__media .media img,.button{transition:none!important}.volta-family:hover,.volta-family:hover img,.button:hover{transform:none}}

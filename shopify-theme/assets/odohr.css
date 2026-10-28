@@ -1,0 +1,93 @@
+:root{color-scheme:dark;--odohr-bg:#050505;--odohr-surface:#141416;--odohr-surface-2:#1d1d1f;--odohr-text:#f5f5f7;--odohr-muted:#a1a1a6;--odohr-blue:#0071e3;--odohr-line:rgba(255,255,255,.13)}
+html{scroll-behavior:smooth}
+body,.gradient{background:var(--odohr-bg)!important;color:var(--odohr-text)}
+body,button,input,select,textarea{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",Helvetica,Arial,sans-serif!important}
+body{letter-spacing:-.012em}
+h1,h2,h3,h4,.h0,.h1,.h2,.h3{font-family:inherit!important;letter-spacing:-.045em;font-weight:600}
+.header-wrapper,.header,.shopify-section-header-sticky,.announcement-bar,.footer,.footer__content-bottom,.menu-drawer,.search-modal{background:#050505!important;color:var(--odohr-text)}
+.header-wrapper,.footer,.announcement-bar{border-color:var(--odohr-line)!important}
+.header__heading-link,.header__menu-item,.header__icon,.announcement-bar__message,.footer a,.footer,.menu-drawer a{color:var(--odohr-text)!important}
+.header__heading-link{font-weight:700;letter-spacing:-.055em}
+.header__menu-item span{text-decoration:none!important}
+.header__menu-item:hover,.footer a:hover{color:#72b3ff!important}
+.button,.shopify-payment-button__button,.customer button{border-radius:999px!important;min-height:4.5rem;transition:transform .24s ease,background-color .24s ease,box-shadow .24s ease}
+.button:not(.button--secondary),.shopify-payment-button__button{background:var(--odohr-blue)!important;color:white!important}
+.button:before,.button:after,.shopify-payment-button__button:before,.shopify-payment-button__button:after{box-shadow:none!important;border:0!important}
+.button:hover,.shopify-payment-button__button:hover{transform:translateY(-2px);box-shadow:0 12px 30px rgba(0,113,227,.23)!important}
+.button:active,.shopify-payment-button__button:active{transform:translateY(0) scale(.98)}
+.button--secondary{background:var(--odohr-surface-2)!important;color:var(--odohr-text)!important}
+.field__input,.select__select,.customer .field input,textarea{background:var(--odohr-surface)!important;color:var(--odohr-text)!important;border-radius:14px!important}
+.field__label,.form__label,.select__select{color:var(--odohr-muted)!important}
+.card-wrapper .card,.product-card-wrapper .card,.collection-list .card{background:var(--odohr-surface)!important;border-radius:20px;overflow:hidden;transition:transform .32s ease,box-shadow .32s ease}
+.card-wrapper:hover .card,.product-card-wrapper:hover .card{transform:translateY(-5px);box-shadow:0 22px 48px rgba(0,0,0,.32)}
+.card__media img{object-fit:contain!important;transition:transform .5s ease!important}
+.card-wrapper:hover .card__media img{transform:scale(1.035)!important}
+.card__heading,.card__heading a,.price,.price-item,.product__title,.product__info-container,.rte,.collection-hero__title{color:var(--odohr-text)!important}
+.card__information,.card__content{padding-left:1.2rem!important;padding-right:1.2rem!important}
+.product__media-wrapper .media,.product__media-wrapper .product__media{background:var(--odohr-surface)!important;border-radius:20px!important;overflow:hidden}
+.product__media img{object-fit:contain!important}
+.product-form__input input[type=radio]+label{border-radius:999px!important;transition:transform .2s ease,background .2s ease}
+.product-form__input input[type=radio]+label:hover{transform:translateY(-2px)}
+.footer{border-top:1px solid var(--odohr-line)!important}
+.footer__content-bottom-wrapper{color:var(--odohr-muted)!important}
+.odohr-home{overflow:clip;background:var(--odohr-bg);color:var(--odohr-text)}
+.odohr-home *{box-sizing:border-box}
+.odohr-progress{position:fixed;z-index:40;top:0;left:0;height:2px;width:0;background:linear-gradient(90deg,#72b3ff,var(--odohr-blue));pointer-events:none;transition:width .08s linear}
+.odohr-hero{min-height:min(880px,100svh);display:grid;align-items:start;text-align:center;padding:clamp(65px,9vw,124px) 24px 48px;background:radial-gradient(ellipse at 50% 73%,rgba(60,61,72,.12),transparent 48%),#050505}
+.odohr-hero__inner{max-width:1320px;width:100%;margin:auto}
+.odohr-eyebrow{font-size:11px;font-weight:650;letter-spacing:.21em;color:#8d8d93;margin:0 0 28px}
+.odohr-hero__switch{display:inline-flex;gap:5px;background:#19191b;border:1px solid var(--odohr-line);padding:4px;border-radius:999px;margin:0 auto 30px}
+.odohr-hero__tab{border:0;border-radius:999px;background:transparent;color:var(--odohr-muted);font-size:13px;font-weight:600;line-height:1;padding:11px 17px;cursor:pointer;transition:background-color .25s ease,color .25s ease,transform .25s ease}
+.odohr-hero__tab:hover{color:var(--odohr-text)}
+.odohr-hero__tab.is-active{background:#363638;color:white;box-shadow:0 3px 14px rgba(0,0,0,.24)}
+.odohr-hero__tab:focus-visible,.odohr-button:focus-visible,.odohr-discover__card:focus-visible{outline:2px solid #72b3ff;outline-offset:3px}
+.odohr-hero__panel[hidden]{display:none}
+.odohr-hero__panel.is-active{animation:odohr-panel-in .5s cubic-bezier(.2,.7,.25,1) both}
+.odohr-hero h1{font-size:clamp(58px,8vw,112px);line-height:.95;margin:0 0 24px;color:var(--odohr-text)}
+.odohr-hero__description{font-size:clamp(16px,1.45vw,20px);line-height:1.48;max-width:580px;margin:0 auto 25px;color:#b7b7bc}
+.odohr-button{display:inline-flex;align-items:center;gap:24px;background:var(--odohr-blue);color:white!important;text-decoration:none;border-radius:999px;padding:13px 19px;font-size:14px;font-weight:600;transition:transform .25s ease,background-color .25s ease,box-shadow .25s ease}
+.odohr-button:hover{background:#1680e9;transform:translateY(-3px);box-shadow:0 16px 35px rgba(0,113,227,.22)}
+.odohr-button:active{transform:scale(.97)}
+.odohr-hero__media{height:clamp(310px,40vw,535px);display:flex;justify-content:center;align-items:center;margin:36px auto 0;position:relative}
+.odohr-hero__media img{display:block;max-width:100%;width:100%;height:100%;object-fit:contain}
+.odohr-hero__media--air img{filter:drop-shadow(0 28px 45px rgba(0,0,0,.55))}
+.odohr-hero__media--pro{background:#050505}
+.odohr-hero__media--pro img{max-width:1040px}
+.odohr-caption{font-size:10px;letter-spacing:.06em;color:#85858b;margin:10px 0 0}
+.odohr-section{padding:clamp(80px,10vw,160px) max(24px,calc((100vw - 1320px)/2));}
+.odohr-section__heading{text-align:center;max-width:760px;margin:0 auto 50px}
+.odohr-section__heading h2{font-size:clamp(38px,5.4vw,72px);line-height:1.03;margin:0 0 20px}
+.odohr-section__heading>p:last-child{font-size:clamp(16px,1.4vw,19px);line-height:1.5;color:var(--odohr-muted);margin:0}
+.odohr-discover{background:#0c0c0e}
+.odohr-discover__grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+.odohr-discover__card{min-height:600px;position:relative;isolation:isolate;display:flex;flex-direction:column;text-decoration:none;color:var(--odohr-text)!important;overflow:hidden;background:var(--odohr-surface);border:1px solid var(--odohr-line);border-radius:28px;padding:38px 38px 0;transition:transform .45s cubic-bezier(.2,.7,.25,1),border-color .3s ease,box-shadow .45s ease}
+.odohr-discover__card:hover{transform:translateY(-7px);border-color:rgba(114,179,255,.38);box-shadow:0 24px 50px rgba(0,0,0,.28)}
+.odohr-discover__topline{font-size:10px;letter-spacing:.18em;color:#8f8f95;margin-bottom:21px;font-weight:600}
+.odohr-discover__title{font-size:clamp(38px,4.2vw,62px);letter-spacing:-.055em;font-weight:600;line-height:1.03}
+.odohr-discover__text{font-size:16px;line-height:1.48;max-width:320px;color:var(--odohr-muted);margin-top:16px}
+.odohr-discover__action{font-size:14px;font-weight:600;color:#72b3ff;margin-top:20px;display:flex;gap:14px}
+.odohr-discover__card img{display:block;width:100%;height:270px;object-fit:contain;margin:auto 0 0;transition:transform .5s ease}
+.odohr-discover__card:hover img{transform:scale(1.04)}
+.odohr-discover__card--pro img{width:calc(100% + 76px);max-width:none;margin-left:-38px;background:#050505}
+.odohr-guide{background:#050505}
+.odohr-guide__grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-top:1px solid var(--odohr-line);border-bottom:1px solid var(--odohr-line)}
+.odohr-guide__item{padding:38px 35px 42px;border-right:1px solid var(--odohr-line)}
+.odohr-guide__item:last-child{border-right:0}
+.odohr-guide__item>span{font-size:11px;letter-spacing:.18em;color:#72b3ff;font-weight:600}
+.odohr-guide__item h3{font-size:25px;line-height:1.1;margin:36px 0 12px}
+.odohr-guide__item p{font-size:15px;line-height:1.55;color:var(--odohr-muted);margin:0}
+.odohr-disclosure{max-width:780px;margin:38px auto 0;text-align:center;color:#8a8a90;font-size:11px;line-height:1.6}
+.odohr-unit{padding-top:76px;padding-bottom:76px;border-top:1px solid var(--odohr-line)}
+.odohr-unit h2{font-size:clamp(34px,4vw,56px);line-height:1.06;margin:0 0 34px;color:var(--odohr-text)}
+.odohr-unit__grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.odohr-unit__grid>div{display:flex;flex-direction:column;justify-content:space-between;min-height:132px;padding:23px;background:var(--odohr-surface);border:1px solid var(--odohr-line);border-radius:18px}
+.odohr-unit__grid span{font-size:13px;color:var(--odohr-muted)}
+.odohr-unit__grid strong{font-size:23px;line-height:1.18;color:var(--odohr-text);font-weight:600;overflow-wrap:anywhere}
+.odohr-unit__note{font-size:12px;line-height:1.5;color:var(--odohr-muted);margin:23px 0 0}
+.odohr-motion [data-odohr-reveal]{opacity:0;transform:translateY(25px);transition:opacity .7s ease,transform .7s cubic-bezier(.2,.7,.25,1)}
+.odohr-motion [data-odohr-reveal].is-visible{opacity:1;transform:translateY(0)}
+@keyframes odohr-panel-in{from{opacity:0;transform:translateY(13px)}to{opacity:1;transform:translateY(0)}}
+.template-password .email-signup-banner__box{background:transparent!important}
+.template-password .email-signup-banner__heading{font-size:clamp(48px,7vw,88px)!important;letter-spacing:-.05em}
+@media(max-width:749px){.odohr-hero{min-height:auto;padding:60px 18px 56px}.odohr-eyebrow{margin-bottom:22px}.odohr-hero h1{font-size:clamp(52px,12vw,76px)}.odohr-hero__description{font-size:16px}.odohr-hero__media{height:300px;margin-top:28px}.odohr-section{padding:82px 18px}.odohr-section__heading{margin-bottom:35px}.odohr-discover__grid{grid-template-columns:1fr;gap:14px}.odohr-discover__card{min-height:510px;padding:30px 28px 0}.odohr-discover__card img{height:230px}.odohr-discover__card--pro img{width:calc(100% + 56px);margin-left:-28px}.odohr-guide__grid{grid-template-columns:1fr}.odohr-guide__item{padding:27px 10px 30px;border-right:0;border-bottom:1px solid var(--odohr-line)}.odohr-guide__item:last-child{border-bottom:0}.odohr-guide__item h3{margin-top:16px;font-size:23px}.odohr-caption{line-height:1.4}.odohr-unit{padding-top:60px;padding-bottom:60px}.odohr-unit__grid{grid-template-columns:1fr}.odohr-unit__grid>div{min-height:105px}.odohr-unit__grid strong{font-size:21px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}[data-odohr-reveal]{opacity:1;transform:none;transition:none}.odohr-hero__panel.is-active{animation:none}.odohr-discover__card,.odohr-discover__card img,.button,.odohr-button{transition:none!important}}

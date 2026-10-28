@@ -1,0 +1,83 @@
+<script src="{{ 'odohr.js' | asset_url }}" defer="defer"></script>
+
+<div class="odohr-home" data-odohr-home>
+  <div class="odohr-progress" aria-hidden="true"></div>
+
+  <section class="odohr-hero" aria-label="Conheça os MacBooks">
+    <div class="odohr-hero__inner">
+      <p class="odohr-eyebrow">ODOHR / MACBOOKS</p>
+      <div class="odohr-hero__switch" role="tablist" aria-label="Linhas de MacBook">
+        <button type="button" class="odohr-hero__tab is-active" id="odohr-tab-air" role="tab" aria-selected="true" aria-controls="odohr-panel-air" data-odohr-tab="air">MacBook Air</button>
+        <button type="button" class="odohr-hero__tab" id="odohr-tab-pro" role="tab" aria-selected="false" aria-controls="odohr-panel-pro" data-odohr-tab="pro" tabindex="-1">MacBook Pro</button>
+      </div>
+
+      <div class="odohr-hero__panel is-active" id="odohr-panel-air" role="tabpanel" aria-labelledby="odohr-tab-air" data-odohr-panel="air">
+        <h1>MacBook Air.</h1>
+        <p class="odohr-hero__description">MacBooks Air para trabalho, estudo e uso diário. Consulte a configuração de cada unidade no catálogo.</p>
+        <a class="odohr-button" href="{{ routes.all_products_collection_url }}">Explorar catálogo <span aria-hidden="true">↗</span></a>
+        <div class="odohr-hero__media odohr-hero__media--air">
+          <img src="{{ 'odohr-air.png' | asset_url }}" alt="MacBook Air M2 de 2022, imagem de referência da Apple" width="940" height="294" fetchpriority="high">
+        </div>
+        <p class="odohr-caption">Imagem Apple de referência · MacBook Air M2 (2022)</p>
+      </div>
+
+      <div class="odohr-hero__panel" id="odohr-panel-pro" role="tabpanel" aria-labelledby="odohr-tab-pro" data-odohr-panel="pro" hidden>
+        <h1>MacBook Pro.</h1>
+        <p class="odohr-hero__description">MacBooks Pro para fluxos de trabalho exigentes. Veja o processador, a memória e o armazenamento de cada unidade.</p>
+        <a class="odohr-button" href="{{ routes.all_products_collection_url }}">Explorar catálogo <span aria-hidden="true">↗</span></a>
+        <div class="odohr-hero__media odohr-hero__media--pro">
+          <img src="{{ 'odohr-pro.jpg' | asset_url }}" alt="MacBook Pro de 2023, imagem de referência da Apple" width="2880" height="1620" loading="lazy">
+        </div>
+        <p class="odohr-caption">Imagem Apple de referência · MacBook Pro (2023)</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="odohr-section odohr-discover" aria-labelledby="odohr-discover-heading">
+    <div class="odohr-section__heading" data-odohr-reveal>
+      <p class="odohr-eyebrow">EXPLORE AS LINHAS</p>
+      <h2 id="odohr-discover-heading">Encontre o modelo que procura.</h2>
+      <p>Os detalhes de configuração, conservação e itens incluídos pertencem a cada anúncio.</p>
+    </div>
+    <div class="odohr-discover__grid">
+      <a class="odohr-discover__card odohr-discover__card--air" href="{{ routes.all_products_collection_url }}" data-odohr-reveal>
+        <span class="odohr-discover__topline">01 / AIR</span>
+        <span class="odohr-discover__title">MacBook Air.</span>
+        <span class="odohr-discover__text">Modelos compactos para acompanhar sua rotina.</span>
+        <span class="odohr-discover__action">Ver unidades <span aria-hidden="true">↗</span></span>
+        <img src="{{ 'odohr-air.png' | asset_url }}" alt="MacBook Air M2 de 2022" width="940" height="294" loading="lazy">
+      </a>
+      <a class="odohr-discover__card odohr-discover__card--pro" href="{{ routes.all_products_collection_url }}" data-odohr-reveal>
+        <span class="odohr-discover__topline">02 / PRO</span>
+        <span class="odohr-discover__title">MacBook Pro.</span>
+        <span class="odohr-discover__text">Opções para edição, desenvolvimento e outras tarefas intensivas.</span>
+        <span class="odohr-discover__action">Ver unidades <span aria-hidden="true">↗</span></span>
+        <img src="{{ 'odohr-pro.jpg' | asset_url }}" alt="MacBook Pro de 2023" width="2880" height="1620" loading="lazy">
+      </a>
+    </div>
+  </section>
+
+  <section class="odohr-section odohr-guide" aria-labelledby="odohr-guide-heading">
+    <div class="odohr-section__heading" data-odohr-reveal>
+      <p class="odohr-eyebrow">ANTES DE ESCOLHER</p>
+      <h2 id="odohr-guide-heading">Informações por unidade.</h2>
+      <p>Compare dados do anúncio e confirme o que acompanha o aparelho antes da compra.</p>
+    </div>
+    <div class="odohr-guide__grid">
+      <div class="odohr-guide__item" data-odohr-reveal><span>01</span><h3>Configuração</h3><p>Confira chip, memória, armazenamento e ano do modelo.</p></div>
+      <div class="odohr-guide__item" data-odohr-reveal><span>02</span><h3>Condição</h3><p>Analise imagens e informações sobre conservação e bateria, quando disponíveis.</p></div>
+      <div class="odohr-guide__item" data-odohr-reveal><span>03</span><h3>Itens incluídos</h3><p>Veja os acessórios informados no anúncio e o valor final apresentado.</p></div>
+    </div>
+    <p class="odohr-disclosure">Fotografias Apple usadas como referência dos modelos. Elas não representam a condição de uma unidade anunciada. A Odohr não é afiliada à Apple.</p>
+  </section>
+</div>
+
+{% schema %}
+{
+  "name": "Odohr MacBooks",
+  "tag": "section",
+  "class": "section-odohr-home",
+  "settings": [],
+  "presets": [{ "name": "Odohr MacBooks" }]
+}
+{% endschema %}
